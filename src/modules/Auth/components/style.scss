@@ -1,0 +1,69 @@
+.signUp, .signIn {
+  width: 25vw;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: white;
+}
+@media (max-width: 800px) {
+  .signUp, .signIn {
+    width: 50vw;
+  }
+}
+
+.form {
+  span {
+    font-size: medium;
+    font-weight: 600;
+  }
+  &-title {
+    font-size: large;
+  }
+  &-submit {
+    width: 100%;
+    height: 50px;
+    text-align: center !important;
+    padding: 2px 5px;
+    margin-top: 3rem;
+    background: none;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      background-color: #bdbdbd;
+      color: #fff;
+      transition: 0.5s;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  &-input {
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    padding: 2px 5px;
+    height: 40px;
+    font-size: x-large;
+    outline: none;
+    ::placeholder {
+      color: #bdbdbd !important;
+    }
+  }
+}
+
+.mt-1 {
+  margin-top: 1rem;
+  }
+.mt-3 {
+  margin-top: 3rem;
+}
+.mb-1 {
+  margin-bottom: 1em;
+}
+.mb-3 {
+  margin-bottom: 3em;
+}
+.error-message {
+  font-size: 10px;
+  color: red;
+}

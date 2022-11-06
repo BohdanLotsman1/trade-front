@@ -1,0 +1,43 @@
+.main-page{
+   // margin-top: 10px;
+    display: flex;
+    //flex-direction: column;
+    width: 100vw;
+    height: 100%;
+    &-side-menu {
+        display: flex;
+        flex-direction: column;
+        width: 150px;
+        height: calc(100vh - 50px);
+        //border: 2px solid black;
+        
+        box-sizing: content-box;
+        &-button {
+            box-sizing: content-box;
+            width: 100%;
+            height: 70px;
+            color: black;
+            font-weight: 700;
+            background-color: #909090;
+            border: 1px solid gray;
+            cursor: pointer;
+            &:hover {
+                border: 1px solid rgb(202, 202, 202);
+            }
+            &-selected {
+                color: white;
+                border: 1px solid rgb(202, 202, 202);
+            }
+        }
+    }
+    &-body {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        &-container {
+            display: flex;
+            //justify-content: space-between;
+            min-height: 250px;
+        }
+    }
+}

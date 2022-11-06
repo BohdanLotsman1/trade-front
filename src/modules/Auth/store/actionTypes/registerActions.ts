@@ -1,0 +1,5 @@
+export const MODULE_NAME = 'AUTH';
+
+export const REGISTER = `[${MODULE_NAME}] REGISTER`;
+export const REGISTER_SUCCESS = `[${MODULE_NAME}] REGISTER_SUCCESS`;
+export const REGISTER_ERROR = `[${MODULE_NAME}] REGISTER_ERROR`;

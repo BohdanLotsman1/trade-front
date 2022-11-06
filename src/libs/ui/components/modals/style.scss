@@ -1,0 +1,92 @@
+.error-container {
+    position: absolute;
+    @-webkit-keyframes fade-in {   0% { opacity: 0.1; }   100% { opacity: 1; }   }
+    @-moz-keyframes    fade-in {   0% { opacity: 0.1; }   100% { opacity: 1; }   }
+    @-o-keyframes      fade-in {   0% { opacity: 0.1; }   100% { opacity: 1; }   }
+    @keyframes         fade-in {   0% { opacity: 0.1; }   100% { opacity: 1; }   }
+    -webkit-animation: fade-in 1s linear;
+    -moz-animation: fade-in 1s linear;
+    -o-animation: fade-in 1s linear;
+    animation: fade-in 1s linear;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    transition: all .1s ease-in-out;
+    top: 3rem;
+    right: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    max-width: 100%;
+    margin-top: 1rem;
+    padding: 10px 15px;
+    background-color: rgba(255, 0, 0, 0.3);
+    border: 1px solid transparent;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    span {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    span, i {
+        color: #611A14;
+    }
+}
+.confirmation {
+    position: absolute;
+    top: 20vh !important;
+    right: 5vw !important;
+    @-webkit-keyframes fade-in {   0% { opacity: 0.1; }   100% { opacity: 1; }   }
+    @-moz-keyframes    fade-in {   0% { opacity: 0.1; }   100% { opacity: 1; }   }
+    @-o-keyframes      fade-in {   0% { opacity: 0.1; }   100% { opacity: 1; }   }
+    @keyframes         fade-in {   0% { opacity: 0.1; }   100% { opacity: 1; }   }
+    -webkit-animation: fade-in .5s linear;
+    -moz-animation: fade-in .5s linear;
+    -o-animation: fade-in .5s linear;
+    animation: fade-in .5s linear;
+    -webkit-transform: translateX(-20%);
+    -moz-transform: translateX(-20%);
+    -ms-transform: translateX(-20%);
+    -o-transform: translateX(-20%);
+    transform: translateX(-20%);
+    transition: all .5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    max-width: 100%;
+    padding: 10px 15px;
+    background-color: #ffffff;
+    color: #ffffff;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+
+    .mb-2 {
+        margin-bottom: 2rem;
+    }
+
+    p {
+        color: #484848;
+    }
+    .confirm, .decline {
+        width: 100%;
+        margin-top: 1rem;
+        height: 3rem;
+        border: 1px solid transparent;
+        border-radius: 5px;
+    }
+    .confirm {
+        background-color: green;
+    }
+    .decline {
+        background-color: #bdbdbd;
+    }
+}

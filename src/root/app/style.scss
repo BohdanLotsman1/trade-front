@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input,
+textarea {
+  width: 100%;
+  display: block;
+}
+body {
+  background-color: rgb(77, 77, 77);
+}
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+
+  background-color: rgb(77, 77, 77);
+}
+.wrapper {
+  display: flex;
+  background-color: rgb(77, 77, 77);
+  width: 100%;
+  height: calc(100vh - 50px);
+  align-items: center;
+  justify-content: center;
+}
