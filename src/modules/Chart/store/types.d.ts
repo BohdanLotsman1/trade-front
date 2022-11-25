@@ -35,6 +35,7 @@ export interface Candle {
   low: number;
   currency: string;
   close: number;
+  volume: number;
 }
 export interface BetFormValues {
     time: number,

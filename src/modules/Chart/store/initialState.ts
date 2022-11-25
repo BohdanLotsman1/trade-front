@@ -11,6 +11,7 @@ export const chartInitialValues: GetChartInStore = {
         low: 0,
         currency: '',
         close: 0,
+        volume: 0,
     },
     currPool: {
         BTCUSDT: 0,

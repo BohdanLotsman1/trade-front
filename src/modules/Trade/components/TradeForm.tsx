@@ -9,16 +9,16 @@ import moment from "moment";
 import { getUserSelector } from "../../User/store/selectors";
 import { createTrade } from "../store/actions";
 import {
-  currencySelector,
   currentCandleSelector,
 } from "../../Chart/store/selectors";
 import classNames from "classnames";
 import { setWallet } from "../../User/store/actions";
+import { currencyEnum, CURRENCY_LOCALSTORAGE_KEY } from "../../../libs/utils/constants";
 
 export const TradeForm = () => {
   const dispatch = useDispatch();
   const currentCandle = useSelector(currentCandleSelector);
-  const currency = useSelector(currencySelector);
+  const currency = localStorage.getItem(CURRENCY_LOCALSTORAGE_KEY) ?? currencyEnum.adabusd;
   const user = useSelector(getUserSelector);
   const [direction, setDirection] = useState(false);
   const required = "This field is required";

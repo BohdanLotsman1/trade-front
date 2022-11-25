@@ -1,20 +1,29 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserSelector } from "../../../../../modules/User/store/selectors";
-import "./style.scss";
 import { AuthService } from "../../../../../modules/Auth/services";
 import { JWT_LOCALSTORAGE_KEY } from "../../../../utils/constants";
 import { logoutUser } from "../../../../../modules/Auth/store/actions/logoutActions";
 import { refillWallet } from "../../../../../modules/User/store/actions";
+import { useStyles } from "./styles";
+import classNames from "classnames";
 
 const authService = AuthService.getInstance();
 
 const Header = () => {
-  let token = localStorage.getItem(JWT_LOCALSTORAGE_KEY);
-
+  const token = localStorage.getItem(JWT_LOCALSTORAGE_KEY);
+  const classes = useStyles();
   const user = useSelector(getUserSelector);
+  const location = useLocation();
   const dispatch = useDispatch();
+
+  const isWallet = location.pathname === '/wallet';
+  const isMain = location.pathname === '/main';
+  const isTrading = location.pathname === '/trading';
+  const isRegistration = location.pathname === '/registration';
+  const isLogin = location.pathname === '/login';
+
   const clickHandler = () => {
     if (!token) {
       window.location.href = `${authService.APP_URL}/login`;
@@ -28,32 +37,40 @@ const Header = () => {
   }
 
   return (
-    <div className="header main">
-      <div className="siteName">
-        <Link to={"/main"} className="link" onClick={clickHandler}>
+    <div className={classes.header}>
+      <div className={classes.siteName}>
+        <Link to={"/main"} className={classNames(classes.link, {[classes.highlightedLink]: isMain})} onClick={clickHandler}>
           Trade.io
         </Link>
       </div>
-      <div className="main">
+      <div className={classes.navLinks}>
+        <Link to={"/wallet"} className={classNames(classes.link, {[classes.highlightedLink]: isWallet})} onClick={clickHandler}>
+          My wallet
+        </Link>
+        <Link to={"/trading"} className={classNames(classes.link, {[classes.highlightedLink]: isTrading})} onClick={clickHandler}>
+          Trading
+        </Link>
+      </div>
+      <div className={classes.flex}>
         {!user.id && (
-          <div className="right">
-            <Link to={"/registration"} className="link">
+          <div className={classes.rightSide}>
+            <Link to={"/registration"} className={classNames(classes.link, {[classes.highlightedLink]: isRegistration})}>
               SignUp
             </Link>
-            <Link to={"/login"} className="link">
+            <Link to={"/login"} className={classNames(classes.link, {[classes.highlightedLink]: isLogin})}>
               SignIn
             </Link>
           </div>
         )}
         {user.id && (
           <>
-            <div className="link">
+            <div className={classes.headerText}>
               <div>{user.name}: {user.wallet.amount_of_money}$</div>
-              <button className="header-button" onClick={handleRefill}>Refill</button>
+              <button className={classes.refillButton} onClick={handleRefill}>Refill</button>
             </div>
-            <div className="right">
+            <div className={classes.rightSide}>
               <div>
-                <Link to={"#"} onClick={handleLogout} className="link">
+                <Link to={"#"} onClick={handleLogout} className={classes.link}>
                   Logout
                 </Link>
               </div>

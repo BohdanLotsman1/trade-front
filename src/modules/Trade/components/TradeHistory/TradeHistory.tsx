@@ -1,12 +1,22 @@
+import { CircularProgress } from "@material-ui/core";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CurentPrice, currencyEnum, socket } from "../../../../libs/utils/constants";
-import { setCurrentCurrency, setSocketCurrency } from "../../../Chart/store/actions";
+import {
+  CurentPrice,
+  currencyEnum,
+  CURRENCY_LOCALSTORAGE_KEY,
+  socket,
+  SOCKET_CURRENCY_LOCALSTORAGE_KEY,
+} from "../../../../libs/utils/constants";
+import {
+  setCurrentCurrency,
+  setSocketCurrency,
+} from "../../../Chart/store/actions";
 import { getUserSelector } from "../../../User/store/selectors";
 import { getTrades } from "../../store/actions";
 import { tradesLoadingSelector, tradesSelector } from "../../store/selectors";
-import { ClosedTrades } from "./ClosedTrades";
-import { OpenedTrades } from "./OpenedTrades";
+import { ClosedTrades } from "./ClosedTrades/ClosedTrades";
+import { OpenedTrades } from "./OpenedTrades/OpenedTrades";
 
 export const TradeHistory = () => {
   const dispatch = useDispatch();
@@ -19,23 +29,27 @@ export const TradeHistory = () => {
     dispatch(getTrades(user.id));
   }, [trades, CurentPrice]);
 
-  const handleClick = (currency: string) => {
+  const handleClick = (currency: string) => () => {
     dispatch(setCurrentCurrency(currency));
-    const socketcur = Object.keys(currencyEnum).find(item => currencyEnum[item as keyof typeof currencyEnum] === currency);
+    const socketcur = Object.keys(currencyEnum).find(
+      (item) => currencyEnum[item as keyof typeof currencyEnum] === currency
+    );
     dispatch(setSocketCurrency(socketcur || ""));
     socket.send(socketcur || "");
+    localStorage.setItem(CURRENCY_LOCALSTORAGE_KEY, currency || "");
+    localStorage.setItem(SOCKET_CURRENCY_LOCALSTORAGE_KEY, socketcur || "");
   };
 
   return (
-    <div className="trade-history">
+    <>
       {loading ? (
-        <>LOADING...</>
+        <CircularProgress />
       ) : (
         <>
-          <ClosedTrades trades={trades} handleClick={handleClick}/>
-          <OpenedTrades trades={trades} handleClick={handleClick}/>
+          <ClosedTrades trades={trades} handleClick={handleClick} />
+          <OpenedTrades trades={trades} handleClick={handleClick} />
         </>
       )}
-    </div>
+    </>
   );
 };

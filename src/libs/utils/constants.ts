@@ -1,4 +1,6 @@
 export const JWT_LOCALSTORAGE_KEY = 'jwt';
+export const CURRENCY_LOCALSTORAGE_KEY = 'currency';
+export const SOCKET_CURRENCY_LOCALSTORAGE_KEY = 'socketCurrency';
 export const APP_API_HOST = process.env.REACT_APP_API_HOST;
 export const APP_URL = process.env.REACT_APP_URL;
 

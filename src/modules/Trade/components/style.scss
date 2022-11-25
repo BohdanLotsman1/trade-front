@@ -1,16 +1,17 @@
 .bet {
-  width: 100%;
+  width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   height: 100%;
   max-width: 485px;
-  margin: 70px 40px 0 50px;
+  margin: 70px 40px 0 40px;
 
   &-input {
     width: 250px;
     color: black;
+    margin-top: 10px;
     span {
       font-size: large;
       font-weight: 600;
@@ -44,81 +45,76 @@
     }
   }
 }
-.trade-history {
-  width: 100%;
-  display: flex;
-  height: 255px;
-  justify-content: center;
-
-  &-title {
-    padding: 5px 15px;
-    font-weight: 700;
-    color: white;
-    font-size: large;
-  }
-  &-scroll-container {
-    height: 216px;
-    overflow: auto;
-  }
-  &-table {
-    border: 1px solid white;
-    width: 100%;
-    position: relative;
-    &-button {
-      padding: 0 4px;
-      border: none;
-      color:white;
-      background-color: red;
-      border-radius: 5px;
-      cursor: pointer;
-      box-sizing: content-box;
-      font-weight: 600;
-      &:hover {
-        box-shadow: 0px 5px 6px #00000029;
-      }
-    }
-    &-currency {
-      cursor: pointer;
-      &:hover {
-        color: white;
-      }
-    }
-    &-win {
-      background-color: rgb(14, 203, 129);
-    }
-    &-lose {
-      background-color: rgb(242, 121, 121);
-    }
-    td {
-      padding: 10px;
-    }
-    thead {
-      th {
-        top: 0;
-        position: sticky;
-        padding: 10px;
-        background-color: rgb(118, 118, 118);
-      }
-    }
-    tbody {
-      font-weight: 600;
-      tr {
-        border: 1px solid white;
-      }
-    }
-  }
-  &-closed {
-    width: 60%;
-  }
-  &-opened {
-    width: 40%;
-  }
-  &-item {
-    margin: 2px;
-    height: 40px;
-    border: 1px solid white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-  }
-}
+// .trade-history {
+//   &-title {
+//     padding: 5px 15px;
+//     font-weight: 700;
+//     color: white;
+//     font-size: large;
+//   }
+//   &-scroll-container {
+//     height: 216px;
+//     overflow: auto;
+//   }
+//   &-table {
+//     border: 1px solid white;
+//     width: 100%;
+//     position: relative;
+//     &-button {
+//       padding: 0 4px;
+//       border: none;
+//       color:white;
+//       background-color: red;
+//       border-radius: 5px;
+//       cursor: pointer;
+//       box-sizing: content-box;
+//       font-weight: 600;
+//       &:hover {
+//         box-shadow: 0px 5px 6px #00000029;
+//       }
+//     }
+//     &-currency {
+//       cursor: pointer;
+//       &:hover {
+//         color: white;
+//       }
+//     }
+//     &-win {
+//       background-color: rgb(14, 203, 129);
+//     }
+//     &-lose {
+//       background-color: rgb(242, 121, 121);
+//     }
+//     td {
+//       padding: 10px;
+//     }
+//     thead {
+//       th {
+//         top: 0;
+//         position: sticky;
+//         padding: 10px;
+//         background-color: rgb(118, 118, 118);
+//       }
+//     }
+//     tbody {
+//       font-weight: 600;
+//       tr {
+//         border: 1px solid white;
+//       }
+//     }
+//   }
+//   &-closed {
+//     width: 60%;
+//   }
+//   &-opened {
+//     width: 40%;
+//   }
+//   &-item {
+//     margin: 2px;
+//     height: 40px;
+//     border: 1px solid white;
+//     cursor: pointer;
+//     display: flex;
+//     align-items: center;
+//   }
+// }

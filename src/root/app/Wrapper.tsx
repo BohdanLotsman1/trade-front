@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import MainPage from "../../modules/pages/MainPage/MainPage";
+import MainPage from "../../modules/MainPage/MainPage";
 import SignIn from "../../modules/Auth/components/SignIn/SignIn";
 import SignUp from "../../modules/Auth/components/SignUp/SignUp";
 import { getUserSelector } from "../../modules/User/store/selectors";
@@ -24,7 +24,13 @@ const Wrapper = () => {
   return (
     <div className="wrapper">
       <Switch>
-      {user.id &&  <Route exact path="/main" component={MainPage} />}
+        <Route exact path="/main" component={MainPage} />
+        {user.id && (
+          <Switch>
+            <Route exact path="/wallet" component={MainPage} />
+            <Route exact path="/trade" component={MainPage} />
+          </Switch>
+        )}
         {!user.id && (
           <Switch>
             <Route exact path="/login" component={SignIn} />

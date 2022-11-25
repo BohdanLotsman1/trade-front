@@ -4,7 +4,6 @@ SET_ERROR,
 GET_TRADES_SUCCESS,
 CREATE_TRADE_SUCCESS,
 GET_TRADES,
-CLOSE_TRADE,
 } from "../actionTypes";
 import { GetTradesInStore } from "../types";
 import { tradeInitialValues } from "../initialState";
