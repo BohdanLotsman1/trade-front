@@ -1,20 +1,19 @@
 import React from "react";
-import { TableCell, TableHead, TableRow } from "@material-ui/core";
-import { useStyles } from "../styles";
+import { styles } from "../styles";
+import { TableCell, TableHead, TableRow } from "@mui/material";
 
 export const ClosedTradesHead = () => {
-  const classes = useStyles();
   return (
-    <TableHead className={classes.header}>
+    <TableHead sx={styles.header}>
       <TableRow>
-        <TableCell className={classes.headCell}>Currency</TableCell>
-        <TableCell className={classes.headCell}>Bet</TableCell>
-        <TableCell className={classes.headCell}>Bet direction</TableCell>
-        <TableCell className={classes.headCell}>Time</TableCell>
-        <TableCell className={classes.headCell}>Result</TableCell>
-        <TableCell className={classes.headCell}>Price on open</TableCell>
-        <TableCell className={classes.headCell}>Price on close</TableCell>
-        <TableCell className={classes.headCell}>Closed at</TableCell>
+        <TableCell sx={styles.headCell}>Currency</TableCell>
+        <TableCell sx={styles.headCell}>Bet</TableCell>
+        <TableCell sx={styles.headCell}>Bet direction</TableCell>
+        <TableCell sx={styles.headCell}>Time</TableCell>
+        <TableCell sx={styles.headCell}>Result</TableCell>
+        <TableCell sx={styles.headCell}>Price on open</TableCell>
+        <TableCell sx={styles.headCell}>Price on close</TableCell>
+        <TableCell sx={styles.headCell}>Closed at</TableCell>
       </TableRow>
     </TableHead>
   );

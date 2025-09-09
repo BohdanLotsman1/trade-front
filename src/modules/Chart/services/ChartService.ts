@@ -1,19 +1,26 @@
-import {AxiosResponse} from "axios";
-import {BaseApiService} from "../../../libs/utils/store/services";
+import { AxiosResponse } from "axios";
+import { BaseApiService } from "../../../libs/store/services";
+import { GetHistoryParams } from "../store/types";
 
 export class ChartService extends BaseApiService {
-    static _instance: ChartService;
+  static _instance: ChartService;
 
-    API_ROUTE = process.env.REACT_APP_API_HOST;
-
-    static getInstance(): ChartService {
-        if (!ChartService._instance) {
-            ChartService._instance = new ChartService();
-        }
-        return ChartService._instance;
+  static getInstance(): ChartService {
+    if (!ChartService._instance) {
+      ChartService._instance = new ChartService();
     }
+    return ChartService._instance;
+  }
 
-    getChartHistory = (currency: string): Promise<AxiosResponse> =>{
-        return this.get(`${this.API_ROUTE}/history?currency=${currency}`);
-    }
+  getChartHistory = ({
+    currency,
+    interval,
+    endTime,
+  }: GetHistoryParams): Promise<AxiosResponse> => {
+    return this.get(
+      `${this.API_ROUTE}/history?currency=${currency}${
+        interval ? `&interval=${interval}` : ""
+      }${endTime ? `&endTime=${endTime}` : ""}`
+    );
+  };
 }

@@ -1,11 +1,10 @@
 import React from "react";
-import moment from "moment";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { closeTrade } from "../../../store/actions";
 import { Trade } from "../../../store/types";
-import { TableBody } from "@material-ui/core";
 import { TradeItem } from "./TradeItem";
-import { useStyles } from "../styles";
+import { TableBody } from "@mui/material";
+import { styles } from "../styles";
 
 interface Props {
   trades: Array<Trade>;
@@ -14,13 +13,12 @@ interface Props {
 
 export const TradesTableBody = ({ trades, handleClick }: Props) => {
   const dispatch = useDispatch();
-  const classes = useStyles();
   const handleClose = (id: string) => () => {
-    dispatch(closeTrade(id));
+    dispatch(closeTrade(id) as any);
   };
 
   return (
-    <TableBody className={classes.body}>
+    <TableBody sx={styles.body}>
       {trades
         .sort(
           (a, b) =>

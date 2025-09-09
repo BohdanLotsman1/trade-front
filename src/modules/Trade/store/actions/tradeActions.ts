@@ -1,4 +1,4 @@
-import { Actions } from "../../../../libs/utils/store/types";
+import { Actions } from "../../../../libs/store/types";
 import {
   CLOSE_TRADE,
   CREATE_TRADE,

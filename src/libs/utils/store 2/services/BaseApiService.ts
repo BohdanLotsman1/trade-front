@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { JWT_LOCALSTORAGE_KEY } from "../../constants";
 
 type ConfigType = AxiosRequestConfig & {
   fullResponse?: boolean;
@@ -10,23 +9,10 @@ type ResponseType<T = any> = {
   config: ConfigType;
 };
 
-axios.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem(JWT_LOCALSTORAGE_KEY);
-
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-
-    return config;
-  },
-  (error) => window.Promise.reject(error)
-);
 axios.interceptors.response.use(
   ({ config, data }: ResponseType) => data,
   (errors) => {
-    if (errors?.response?.status === 401)
-      localStorage.removeItem(JWT_LOCALSTORAGE_KEY);
+    if (errors?.response?.status === 401) axios.post("auth/refresh-token");
     if (errors?.response?.status === 404) throw errors;
     if (errors?.response?.data) throw errors.response.data;
     if (errors?.response) throw errors.response;

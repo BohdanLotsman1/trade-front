@@ -1,0 +1,57 @@
+.header {
+  background-color: gray;
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 27px;
+  padding-right: 20px;
+}
+.refillButton {
+  display: flex;
+  align-self: center;
+  margin-left: 5px;
+  font-size: 15px;
+  height: 30px;
+  background-color: rgb(127, 214, 178);
+  padding: 0 8px;
+  cursor: pointer;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+}
+.siteName {
+  margin-left: 100px;
+}
+.navLinks {
+  display: flex;
+}
+.rightSide {
+  display: flex;
+  background-color: transparent;
+  // margin-right: 50px;
+}
+.link {
+  display: flex;
+  margin-right: 30px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  &:hover {
+    color: rgb(87, 87, 87);
+  }
+}
+.highlightedLink {
+  color: rgb(255, 255, 255);
+}
+.headerText {
+  display: flex;
+  margin-right: 30px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  gap: 5px;
+}
+.flex {
+  display: flex;
+}

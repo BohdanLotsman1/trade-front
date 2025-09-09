@@ -1,4 +1,4 @@
-import { Actions } from "../../../../libs/utils/store/types";
+import { Actions } from "../../../../libs/store/types";
 import { call, put } from "redux-saga/effects";
 import { TradeService } from "../../services";
 import {

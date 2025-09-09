@@ -1,10 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { cryptoCurrency } from "../../../libs/utils/helpers";
 import {
   getChartHistory,
-  setCandleObject,
-  setCurrencyPoolItem,
   setCurrentCurrency,
   setSocketCurrency,
 } from "../store/actions";
@@ -14,111 +11,116 @@ import {
   loadingSelector,
   socketCurrencySelector,
 } from "../store/selectors";
-import { makeStyles } from "@material-ui/core/styles";
 import {
-  CurentPrice,
   currencyEnum,
   CURRENCY_LOCALSTORAGE_KEY,
-  socket,
   socketCurrEnum,
   SOCKET_CURRENCY_LOCALSTORAGE_KEY,
 } from "../../../libs/utils/constants";
-import { CircularProgress } from "@material-ui/core";
-import { createCandlestickChart, getVolume } from "../../../libs/utils/helpers";
-
-interface StyleProps {
-  loading: boolean;
-}
-const useStyles = makeStyles({
-  chartContainer: {
-    width: "calc(100% - 300px)",
-    height: "100%",
-    padding: "20px 0 20px 50px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-  },
-  chart: (loading: StyleProps) => ({
-    display: loading ? "none" : "flex",
-  }),
-});
-
-function useDebounce<T>(value: T, delay?: number): T {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedValue(value), delay || 500);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [value, delay]);
-
-  return debouncedValue;
-}
+import { createCandlestickChart } from "../../../libs/utils/helpers";
+import { Box, CircularProgress } from "@mui/material";
+import "./style.scss";
+import { getUserSelector } from "../../User/store/selectors";
+import { WebSocketContext } from "../../../libs/ui/layouts/SocketContext";
+import HighchartsReact from "highcharts-react-official";
+import Highcharts from "highcharts";
+import Highstock from "highcharts/highstock";
+import { getOptions } from "../constants";
+// const exporting = require("highcharts/modules/exporting");
+// const Exporting = require("highcharts/modules/exporting");
+// Exporting(Highcharts);
 
 export const Chart = () => {
   const dispatch = useDispatch();
   const currencyPair = useSelector(currencySelector);
   const socketPair = useSelector(socketCurrencySelector);
   const loading = useSelector(loadingSelector);
+  const user = useSelector(getUserSelector);
   const chartData = useSelector(chartDataSelector);
-  const classes = useStyles({ loading });
   const ref = useRef<HTMLDivElement | null>(null);
+  const { socket } = useContext<any>(WebSocketContext);
+
+  const volume = useMemo(
+    () =>
+      chartData?.length &&
+      chartData.map((item) => ({ time: item.time, value: item.volume })),
+    [chartData]
+  );
+
   const currency =
     localStorage.getItem(CURRENCY_LOCALSTORAGE_KEY) ?? currencyEnum.adabusd;
   const socketCurrency =
     localStorage.getItem(SOCKET_CURRENCY_LOCALSTORAGE_KEY) ??
     socketCurrEnum.adabusd;
-  const [chartWidth, setChartWidth] = useState<number>(
-    ref.current?.clientWidth ?? 450
-  );
-  const [chartHeight, setChartHeight] = useState<number>(
-    ref.current?.clientHeight ?? 250
-  );
-  const setChartDimensions = () => {
-    console.log(ref.current?.clientWidth, ref.current?.clientHeight);
 
-    setChartWidth(ref.current?.clientWidth ?? 0);
-    setChartHeight(ref.current?.clientHeight ?? 0);
-  };
+  // const [chartWidth, setChartWidth] = useState<number>(
+  //   ref.current?.clientWidth ?? 450
+  // );
+  // const [chartHeight, setChartHeight] = useState<number>(
+  //   ref.current?.clientHeight ?? 250
+  // );
+  // const setChartDimensions = () => {
+  //   console.log(ref.current?.clientWidth, ref.current?.clientHeight);
+
+  //   setChartWidth(ref.current?.clientWidth ?? 0);
+  //   setChartHeight(ref.current?.clientHeight ?? 0);
+  // };
 
   useEffect(() => {
     if (!currencyPair && !socketPair) {
-      dispatch(setCurrentCurrency(currency));
-      dispatch(setSocketCurrency(socketCurrency));
+      dispatch(setCurrentCurrency(currency) as any);
+      dispatch(setSocketCurrency(socketCurrency) as any);
       return;
     }
-    dispatch(getChartHistory(currencyPair));
-  }, [currencyPair, socketPair]);
+    dispatch(getChartHistory({ currency: socketPair }) as any);
+  }, [currency, currencyPair, dispatch, socketCurrency, socketPair, user.id]);
 
-  useEffect(() => {
-    setChartDimensions();
-  }, [ref.current]);
+  // useEffect(() => {
+  //   setChartDimensions();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [ref.current]);
 
-  useEffect(() => {
-    chartData.length &&
-      socketPair &&
-      createCandlestickChart(
-        currencyPair,
-        socketPair,
-        chartData,
-        dispatch,
-        chartWidth - 30,
-        chartHeight - 40
-      );
-  }, [currencyPair, chartData, socketPair, chartWidth, chartHeight]);
+  // useEffect(() => {
+  //   chartData.length &&
+  //     socketPair &&
+  //     createCandlestickChart(
+  //       currencyPair,
+  //       socketPair,
+  //       chartData,
+  //       dispatch,
+  //       socket
+  //     );
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [currencyPair, chartData, socketPair]);
 
-  useEffect(() => {
-    window.addEventListener("resize", setChartDimensions);
-    return () => window.removeEventListener("resize", setChartDimensions);
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener("resize", setChartDimensions);
+  //   return () => window.removeEventListener("resize", setChartDimensions);
+  // }, []);
+  console.log(loading, chartData);
 
   return (
-    <div className={classes.chartContainer} ref={ref}>
+    <Box className={"chartContainer"}>
       {loading && <CircularProgress />}
-      <div id="chart" style={{ display: loading ? "none" : "flex" }} />
-    </div>
+      {/* <div
+        id="chart"
+        style={{
+          display: loading ? "none" : "flex",
+          width: "100%",
+          height: "100%",
+        }}
+      /> */}
+      <HighchartsReact
+        width={"100%"}
+        height={"100%"}
+        highcharts={Highstock}
+        constructorType="stockChart"
+        options={{
+          ...getOptions(chartData, volume),
+          title: { text: currencyPair?.toUpperCase(), loading: loading },
+        }}
+        containerProps={{ style: { width: "100%" } }}
+      />
+    </Box>
   );
 };

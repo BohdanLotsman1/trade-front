@@ -8,17 +8,20 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { getUserSelector } from "../../User/store/selectors";
 import { createTrade } from "../store/actions";
-import {
-  currentCandleSelector,
-} from "../../Chart/store/selectors";
+import { currentCandleSelector } from "../../Chart/store/selectors";
 import classNames from "classnames";
 import { setWallet } from "../../User/store/actions";
-import { currencyEnum, CURRENCY_LOCALSTORAGE_KEY } from "../../../libs/utils/constants";
+import {
+  currencyEnum,
+  CURRENCY_LOCALSTORAGE_KEY,
+} from "../../../libs/utils/constants";
+import { Button } from "@mui/material";
 
 export const TradeForm = () => {
   const dispatch = useDispatch();
   const currentCandle = useSelector(currentCandleSelector);
-  const currency = localStorage.getItem(CURRENCY_LOCALSTORAGE_KEY) ?? currencyEnum.adabusd;
+  const currency =
+    localStorage.getItem(CURRENCY_LOCALSTORAGE_KEY) ?? currencyEnum.adabusd;
   const user = useSelector(getUserSelector);
   const [direction, setDirection] = useState(false);
   const required = "This field is required";
@@ -48,7 +51,7 @@ export const TradeForm = () => {
         user_id: user.id,
         wallet_id: user.wallet.id,
       };
-      dispatch(createTrade(form));
+      dispatch(createTrade(form) as any);
       dispatch(
         setWallet({
           amount_of_money: user.wallet.amount_of_money - values.trade_price,
@@ -56,7 +59,6 @@ export const TradeForm = () => {
         })
       );
     }
-   
   };
 
   const handleClick = (direction: boolean) => {
@@ -106,20 +108,20 @@ export const TradeForm = () => {
             />
           </div>
           <div className="bet-buttons">
-            <button
+            <Button
               type="submit"
               className={classNames("bet-buttons-buy", "bet-buttons-btn")}
               onClick={() => handleClick(true)}
             >
               BUY/LONG
-            </button>
-            <button
+            </Button>
+            <Button
               type="submit"
               className={classNames("bet-buttons-sell", "bet-buttons-btn")}
               onClick={() => handleClick(false)}
             >
               SELL/SHORT
-            </button>
+            </Button>
           </div>
         </Form>
       </Formik>

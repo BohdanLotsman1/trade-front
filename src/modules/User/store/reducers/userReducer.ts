@@ -1,13 +1,15 @@
-import { Actions } from "../../../../libs/utils/store/types";
+import { Actions } from "../../../../libs/store/types";
 import {
   GET_USER,
   SET_WALLET,
-  SET_USER,
   UPDATE_USER,
+  GET_USER_SUCCESS,
+  GET_USER_ERROR,
 } from "../actionTypes";
 import { GetUserInStore } from "../types";
 import { UserInitialValues } from "../initialState";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (
   state: GetUserInStore = UserInitialValues,
   { type, payload }: Actions
@@ -16,14 +18,19 @@ export default (
     case GET_USER:
       return {
         ...state,
+        loading: true,
       };
-    case SET_USER:
+    case GET_USER_SUCCESS:
       return {
         ...state,
-        id: payload.user.id,
-        email: payload.user.email,
-        name: payload.user.name,
-        wallet: payload.wallet,
+        ...payload.user,
+        loading: false,
+      };
+    case GET_USER_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
       };
     case UPDATE_USER:
       return {

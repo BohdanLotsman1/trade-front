@@ -1,22 +1,49 @@
-import { Actions } from "../../../../libs/utils/store/types";
+import { Actions } from "../../../../libs/store/types";
 import { call, put } from "redux-saga/effects";
-import { setUser, getUserError, updateUser, setWallet } from "../actions";
+import {
+  getUserError,
+  updateUser,
+  setWallet,
+  getUserSuccess,
+} from "../actions";
 import { UserService } from "../../services";
+import { getTrades } from "../../../Trade/store/actions";
+import { AuthService } from "../../../Auth/services";
+import { redirect } from "react-router";
 
 const userService = UserService.getInstance();
+const authService = AuthService.getInstance();
 
 export function* getAuthUser() {
   try {
-    const { data } = yield call(userService.getAuthUserByToken);
+    const { data } = yield call(userService.getAuthUser);
 
     if (data) {
-      yield put(setUser(data));
+      yield put(getUserSuccess(data));
+      yield put(getTrades(data.user.id) as any);
     }
   } catch (error: any) {
-    if (error.statusCode === 401) {
-      window.location.href = `${process.env.REACT_APP_URL}/login`;
+    console.log("Error fetching auth user:", error);
+
+    if (error.status === 401) {
+      console.log("Attempting to refresh token...");
+
+      try {
+        yield call(authService.refreshToken);
+        const { data } = yield call(userService.getAuthUser);
+
+        if (data) {
+          yield put(getUserSuccess(data));
+          yield put(getTrades(data.user.id) as any);
+        }
+      } catch (e) {
+        console.log("Error refreshing token:", e);
+        redirect("/login");
+        // window.location.href = `${process.env.REACT_APP_URL}/login`;
+      }
     }
-    yield put(getUserError([error.response.data.message]));
+
+    yield put(getUserError([error?.message]));
   }
 }
 
@@ -32,7 +59,7 @@ export function* refillingWallet({ payload }: Actions) {
   try {
     const { data } = yield call(userService.refillWallet, payload);
     if (data) {
-      yield put(setWallet(data))
+      yield put(setWallet(data));
     }
   } catch (e) {
     console.log(e);
@@ -40,15 +67,15 @@ export function* refillingWallet({ payload }: Actions) {
 }
 
 export function* gettingWallet({ payload }: Actions) {
-    try {
-      const { data } = yield call(userService.getWallet, payload);
-      if (data) {
-        yield put(setWallet(data));
-      }
-    } catch (e) {
-      console.log(e);
+  try {
+    const { data } = yield call(userService.getWallet, payload);
+    if (data) {
+      yield put(setWallet(data));
     }
+  } catch (e) {
+    console.log(e);
   }
+}
 
 export function* updatingUserInfo({ payload }: Actions) {
   try {

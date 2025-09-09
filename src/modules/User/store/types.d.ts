@@ -2,6 +2,8 @@ export interface User {
   id: string;
   email: string;
   name: string;
+  wallet: Wallet;
+  avatar_url?: string;
 }
 
 export interface GetUserInStore {
@@ -9,6 +11,9 @@ export interface GetUserInStore {
   email: string;
   name: string;
   wallet: Wallet;
+  avatar_url?: string;
+  loading: boolean;
+  error: string;
 }
 
 export interface Wallet {

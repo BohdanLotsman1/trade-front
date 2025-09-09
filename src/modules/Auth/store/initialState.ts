@@ -1,33 +1,38 @@
-import {RegistrationFormValues, LoginFormValues, SignUpStore, SignInStore} from "./types";
+import {
+  RegistrationFormValues,
+  LoginFormValues,
+  SignUpStore,
+  SignInStore,
+} from "./types";
 
 export const registrationInitialValues: RegistrationFormValues = {
-    email: '',
-    name: '',
-    password: '',
-    password_confirmation: '',
+  email: "",
+  name: "",
+  password: "",
+  password_confirmation: "",
 };
 
 export const loginInitialValues: LoginFormValues = {
-    email: '',
-    password: '',
-}
+  email: "",
+  password: "",
+};
 
 export const SignUpInitStore: SignUpStore = {
-    loading: false,
-    errors: [],
-    isSuccess: false,
+  loading: false,
+  errors: [],
+  isSuccess: false,
 };
 
 export const SignInInitStore: SignInStore = {
-    loading: false,
-    errors: [],
-    isSuccess: false,
-    isAuth: false
+  loading: false,
+  errors: [],
+  isSuccess: false,
+  isAuth: false,
 };
 
 export const LogoutInitStore: SignInStore = {
-    loading: false,
-    errors: [],
-    isSuccess: false,
-    isAuth: true
+  loading: false,
+  errors: [],
+  isSuccess: false,
+  isAuth: true,
 };

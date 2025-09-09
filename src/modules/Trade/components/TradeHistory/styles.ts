@@ -1,6 +1,4 @@
-import { makeStyles, Theme } from "@material-ui/core";
-
-export const useStyles = makeStyles((theme: Theme) => ({
+export const styles = {
   table: {
     border: "1px solid white",
     width: " 100%",
@@ -26,12 +24,6 @@ export const useStyles = makeStyles((theme: Theme) => ({
     height: "calc(255px - 30px)",
     overflow: "auto",
   },
-  opened: {
-    width: "40%",
-  },
-  closed: {
-    width: "60%",
-  },
   win: {
     backgroundColor: "rgb(14, 203, 129)",
   },
@@ -45,7 +37,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   closeBtn: {
-    padding: " 0 4px",
+    padding: "0 4px",
     border: "none",
     color: "white",
     backgroundColor: "red",
@@ -62,9 +54,9 @@ export const useStyles = makeStyles((theme: Theme) => ({
   },
   headCell: {
     fontWeight: 600,
-    padding: theme.spacing(2, 1),
+    padding: "16px 8px",
   },
   cell: {
-    padding: theme.spacing(2, 1),
+    padding: "16px 8px",
   },
-}));
+};

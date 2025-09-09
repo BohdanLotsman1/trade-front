@@ -1,7 +1,6 @@
-const MODULE_NAME = 'USER';
+const MODULE_NAME = "USER";
 
 export const GET_USER = `[${MODULE_NAME}] GET_USER`;
-export const SET_USER = `[${MODULE_NAME}] SET_USER`;
 export const GET_USER_ERROR = `[${MODULE_NAME}] GET_USER_ERROR`;
 export const GET_USER_SUCCESS = `[${MODULE_NAME}] GET_USER_SUCCESS`;
 export const GET_USER_ERRORS_CLEAR = `[${MODULE_NAME}] GET_USER_ERRORS_CLEAR`;

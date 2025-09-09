@@ -2,12 +2,14 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { cleanLoginErrors, registerUser } from "../../store/actions";
-import { registrationInitialValues } from "../../store/initialState";
-import { RegistrationFormValues } from "../../store/types";
-import "../style.scss";
-import { signUpErrorsSelector } from "../../store/selectors";
-import ErrorPopup from "../../../../libs/ui/components/modals/ErrorPopup";
+import { signUpErrorsSelector } from "../../modules/Auth/store/selectors";
+import ErrorPopup from "../../libs/ui/components/modals/ErrorPopup";
+import { RegistrationFormValues } from "../../modules/Auth/store/types";
+import {
+  cleanLoginErrors,
+  registerUser,
+} from "../../modules/Auth/store/actions";
+import { registrationInitialValues } from "../../modules/Auth/store/initialState";
 
 const required = "This field is required";
 
@@ -25,7 +27,7 @@ const RegisterValidationSchema = () =>
       .label("Password"),
     password_confirmation: Yup.string()
       .min(8)
-      .oneOf([Yup.ref("password"), null], "Passwords don`t match")
+      .oneOf([Yup.ref("password")], "Passwords don`t match")
       .label("Password confirmation"),
   });
 
@@ -35,7 +37,13 @@ const SignUp = () => {
   const errors = useSelector(signUpErrorsSelector);
 
   const submitHandle = (values: RegistrationFormValues) => {
-    dispatch(registerUser(values));
+    dispatch(
+      registerUser({
+        email: values.email,
+        name: values.name,
+        password: values.password,
+      })
+    );
   };
 
   return (
@@ -45,7 +53,7 @@ const SignUp = () => {
 
       <Formik
         initialValues={registrationInitialValues}
-        validationSchema={RegisterValidationSchema()}
+        validationSchema={RegisterValidationSchema}
         onSubmit={submitHandle}
       >
         {() => (

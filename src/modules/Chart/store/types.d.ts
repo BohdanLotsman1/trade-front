@@ -6,28 +6,32 @@ export interface GetChartInStore {
   socketCurrency: string;
   currentCandle: Candle;
   currPool: {
-    BTCUSDT: number,
-    ETHBTC: number,
-    YFIBTC: number,
-    DASHBTC: number,
-    ADABUSD: number,
-    LTCBUSD: number,
-    ATOMBNB: number,
-    LUNAUSDT: number,
-    XRPUSDT: number,
-    ETHUSDT: number,
-    DOTBUSD: number,
-    DASHBUSD: number,
-    DASHUSDT: number,
-    SOLUSDT: number,
-    SOLBTC: number,
-    MANAUSDT: number,
-    MANABUSD: number,
-  },
+    BTCUSDT: number;
+    ETHBTC: number;
+    YFIBTC: number;
+    DASHBTC: number;
+    ADABUSD: number;
+    LTCBUSD: number;
+    ATOMBNB: number;
+    LUNAUSDT: number;
+    XRPUSDT: number;
+    ETHUSDT: number;
+    DOTBUSD: number;
+    DASHBUSD: number;
+    DASHUSDT: number;
+    SOLUSDT: number;
+    SOLBTC: number;
+    MANAUSDT: number;
+    MANABUSD: number;
+  };
   loading: boolean;
   error: string;
 }
-
+export interface GetHistoryParams {
+  currency: string;
+  interval?: string;
+  endTime?: number;
+}
 export interface Candle {
   time: any;
   open: number;
@@ -38,6 +42,6 @@ export interface Candle {
   volume: number;
 }
 export interface BetFormValues {
-    time: number,
-    trade_price: number,
+  time: number;
+  trade_price: number;
 }

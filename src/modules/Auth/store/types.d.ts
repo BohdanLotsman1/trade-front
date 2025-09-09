@@ -1,31 +1,34 @@
-export interface RegistrationFormValues {
-    email: string;
-    name: string;
-    password: string;
-    password_confirmation: string;
+export interface RegistrationFormValues extends RegistrationData {
+  password_confirmation: string;
+}
+
+export interface RegistrationData {
+  email: string;
+  name: string;
+  password: string;
 }
 
 export interface LoginFormValues {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 }
 
 export interface SignUpStore {
-    loading: boolean;
-    errors: string[];
-    isSuccess: boolean;
+  loading: boolean;
+  errors: string[];
+  isSuccess: boolean;
 }
 
 export interface SignInStore {
-    loading: boolean;
-    errors: string[];
-    isSuccess: boolean;
-    isAuth: boolean;
+  loading: boolean;
+  errors: string[];
+  isSuccess: boolean;
+  isAuth: boolean;
 }
 
 export interface LogoutStore {
-    loading: boolean;
-    errors: string[];
-    isSuccess: boolean;
-    isAuth: boolean;
+  loading: boolean;
+  errors: string[];
+  isSuccess: boolean;
+  isAuth: boolean;
 }

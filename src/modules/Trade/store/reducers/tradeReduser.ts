@@ -1,9 +1,9 @@
-import { Actions } from "../../../../libs/utils/store/types";
+import { Actions } from "../../../../libs/store/types";
 import {
-SET_ERROR,
-GET_TRADES_SUCCESS,
-CREATE_TRADE_SUCCESS,
-GET_TRADES,
+  SET_ERROR,
+  GET_TRADES_SUCCESS,
+  CREATE_TRADE_SUCCESS,
+  GET_TRADES,
 } from "../actionTypes";
 import { GetTradesInStore } from "../types";
 import { tradeInitialValues } from "../initialState";

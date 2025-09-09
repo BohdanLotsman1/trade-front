@@ -1,4 +1,4 @@
-import {State} from "../../../libs/utils/store/reducers";
+import { State } from "../../../libs/store/reducers";
 
 export const signInErrorsSelector = (state: State) => state.auth.signIn.errors;
 

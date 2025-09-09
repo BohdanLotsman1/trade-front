@@ -1,13 +1,12 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+import ErrorPopup from "../../libs/ui/components/modals/ErrorPopup";
+import { loginUser, cleanLoginErrors } from "../../modules/Auth/store/actions";
+import { loginInitialValues } from "../../modules/Auth/store/initialState";
+import { signInErrorsSelector } from "../../modules/Auth/store/selectors";
+import { LoginFormValues } from "../../modules/Auth/store/types";
 import * as Yup from "yup";
-import { loginUser, cleanLoginErrors } from "../../store/actions";
-import { loginInitialValues } from "../../store/initialState";
-import { LoginFormValues } from "../../store/types";
-import "../style.scss";
-import { signInErrorsSelector } from "../../store/selectors";
-import ErrorPopup from "../../../../libs/ui/components/modals/ErrorPopup";
 
 const SignIn = () => {
   const errors = useSelector(signInErrorsSelector);

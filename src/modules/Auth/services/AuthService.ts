@@ -1,15 +1,11 @@
 import { AxiosResponse } from "axios";
-import { BaseApiService } from "../../../libs/utils/store/services";
-import { JWT_LOCALSTORAGE_KEY } from "../../../libs/utils/constants";
-import { parseJWT, setToHappen } from "../../../libs/utils/helpers";
+import { BaseApiService } from "../../../libs/store/services";
+// import { JWT_LOCALSTORAGE_KEY } from "../../../libs/utils/constants";
+// import { parseJWT, setToHappen } from "../../../libs/utils/helpers";
 import { User } from "../../User/store/types";
 
 export class AuthService extends BaseApiService {
   static _instance: AuthService;
-
-  TOKEN_KEY = JWT_LOCALSTORAGE_KEY;
-  API_ROUTE = process.env.REACT_APP_API_HOST;
-  APP_URL = process.env.REACT_APP_URL;
 
   user?: User | null;
   userPromise: Promise<User | null>;
@@ -33,48 +29,44 @@ export class AuthService extends BaseApiService {
     return AuthService._instance;
   }
 
-  static getAuthState(): boolean {
-    return !!localStorage.getItem(JWT_LOCALSTORAGE_KEY);
-  }
+  // static getAuthState(): boolean {
+  //   return !!localStorage.getItem(JWT_LOCALSTORAGE_KEY);
+  // }
 
   setUser(user: User | null): void {
     this.user = user;
     this.resolve && this.resolve(user);
   }
 
-  logout(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
-  }
+  // applyToken(jwt: string, silent = false): void {
+  //   console.log(jwt);
 
-  applyToken(jwt: string, silent = false): void {
-    console.log(jwt);
-    
-    localStorage.setItem(this.TOKEN_KEY, jwt);
+  //   localStorage.setItem(this.TOKEN_KEY, jwt);
 
-    if (!silent) {
-      const [, payload] = parseJWT(jwt);
-      const expiredDate = payload.exp - 500;
-        
-      if (this.updateTimeout !== null) {
-        window.clearTimeout(this.updateTimeout);
-      }
+  //   if (!silent) {
+  //     const [, payload] = parseJWT(jwt);
+  //     const expiredDate = payload.exp - 500;
 
-      this.updateTimeout = setToHappen(async () => {
-        const newToken = await this.refreshToken(jwt);
-         localStorage.setItem(this.TOKEN_KEY, newToken.data.access_token.token);
-      }, expiredDate * 1000);
-    }
-  }
+  //     if (this.updateTimeout !== null) {
+  //       window.clearTimeout(this.updateTimeout);
+  //     }
+
+  //     this.updateTimeout = setToHappen(async () => {
+  //       const newToken = await this.refreshToken(jwt);
+  //        localStorage.setItem(this.TOKEN_KEY, newToken.data.access_token.token);
+  //     }, expiredDate * 1000);
+  //   }
+  // }
 
   login = (data: object): Promise<AxiosResponse> => {
     return this.post(`${this.API_ROUTE}/auth/login`, data);
   };
 
-  getLogout = (): Promise<AxiosResponse> => {
+  logout = (): Promise<AxiosResponse> => {
     return this.get(`${this.API_ROUTE}/auth/logout`);
   };
 
-  refreshToken = (token: string): Promise<AxiosResponse> => {
-    return this.get(`${this.API_ROUTE}/auth/refresh-token?token=${token}`);
-  }
+  refreshToken = (): Promise<AxiosResponse> => {
+    return this.post(`${this.API_ROUTE}/auth/refresh-token`);
+  };
 }

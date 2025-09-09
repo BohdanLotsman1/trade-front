@@ -1,11 +1,9 @@
 import { AxiosResponse } from "axios";
-import { BaseApiService } from "../../../libs/utils/store/services";
+import { BaseApiService } from "../../../libs/store/services";
 import { Trade } from "../store/types";
 
 export class TradeService extends BaseApiService {
   static _instance: TradeService;
-
-  API_ROUTE = process.env.REACT_APP_API_HOST;
 
   static getInstance(): TradeService {
     if (!TradeService._instance) {

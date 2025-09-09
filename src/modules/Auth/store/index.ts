@@ -1,4 +1,4 @@
-import reducers from './reducers';
-import authWatch from './sagas';
+import reducers from "./reducers";
+import authWatch from "./sagas";
 
 export { reducers, authWatch };
