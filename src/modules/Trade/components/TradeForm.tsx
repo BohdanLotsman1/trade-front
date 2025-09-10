@@ -8,20 +8,18 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { getUserSelector } from "../../User/store/selectors";
 import { createTrade } from "../store/actions";
-import { currentCandleSelector } from "../../Chart/store/selectors";
+import {
+  currencySelector,
+  currentCandleSelector,
+} from "../../Chart/store/selectors";
 import classNames from "classnames";
 import { setWallet } from "../../User/store/actions";
-import {
-  currencyEnum,
-  CURRENCY_LOCALSTORAGE_KEY,
-} from "../../../libs/utils/constants";
 import { Button } from "@mui/material";
 
 export const TradeForm = () => {
   const dispatch = useDispatch();
   const currentCandle = useSelector(currentCandleSelector);
-  const currency =
-    localStorage.getItem(CURRENCY_LOCALSTORAGE_KEY) ?? currencyEnum.adabusd;
+  const currency = useSelector(currencySelector);
   const user = useSelector(getUserSelector);
   const [direction, setDirection] = useState(false);
   const required = "This field is required";
@@ -67,7 +65,6 @@ export const TradeForm = () => {
 
   return (
     <div className="bet">
-      <h1>Make your deal</h1>
       <Formik
         initialValues={createTradeInitialValues}
         validationSchema={BetValidationSchema()}

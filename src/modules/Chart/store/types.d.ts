@@ -1,28 +1,9 @@
-import { Time } from "lightweight-charts";
-
 export interface GetChartInStore {
   chartData: Array<Candle>;
   currentCurrency: string;
-  socketCurrency: string;
   currentCandle: Candle;
   currPool: {
-    BTCUSDT: number;
-    ETHBTC: number;
-    YFIBTC: number;
-    DASHBTC: number;
-    ADABUSD: number;
-    LTCBUSD: number;
-    ATOMBNB: number;
-    LUNAUSDT: number;
-    XRPUSDT: number;
-    ETHUSDT: number;
-    DOTBUSD: number;
-    DASHBUSD: number;
-    DASHUSDT: number;
-    SOLUSDT: number;
-    SOLBTC: number;
-    MANAUSDT: number;
-    MANABUSD: number;
+    [key: string]: number;
   };
   loading: boolean;
   error: string;
@@ -44,4 +25,26 @@ export interface Candle {
 export interface BetFormValues {
   time: number;
   trade_price: number;
+}
+
+export interface ListedCurrenciesStorage {
+  expireTime: number;
+  currencies: Array<{ symbol: string; title: string }>;
+}
+export interface ListedCurrency {
+  symbol: string;
+  base: string;
+  quote: string;
+  marginRatio: string;
+  isTradeAllowed: boolean;
+  isBuyAllowed: boolean;
+  isSellAllowed: boolean;
+  isBaseBorrowable: boolean;
+  isQuoteBorrowable: boolean;
+  isBaseTransferIn: boolean;
+  isQuoteTransferIn: boolean;
+  status: string;
+  delistTime: null;
+  listOpenTime: null;
+  isPublic: boolean;
 }

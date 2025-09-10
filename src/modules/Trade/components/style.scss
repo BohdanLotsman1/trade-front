@@ -1,15 +1,14 @@
 .bet {
-  width: 300px;
+  width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   height: 100%;
   max-width: 485px;
-  margin: 70px 40px 0 40px;
 
   &-input {
-    width: 250px;
+    width: 200px;
     color: black;
     margin-top: 10px;
     span {

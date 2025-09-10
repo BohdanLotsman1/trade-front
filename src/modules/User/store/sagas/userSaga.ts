@@ -5,6 +5,7 @@ import {
   updateUser,
   setWallet,
   getUserSuccess,
+  getMe,
 } from "../actions";
 import { UserService } from "../../services";
 import { getTrades } from "../../../Trade/store/actions";
@@ -33,7 +34,7 @@ export function* getAuthUser() {
         const { data } = yield call(userService.getAuthUser);
 
         if (data) {
-          yield put(getUserSuccess(data));
+          yield put(getMe());
           yield put(getTrades(data.user.id) as any);
         }
       } catch (e) {

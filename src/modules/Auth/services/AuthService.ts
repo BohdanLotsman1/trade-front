@@ -1,7 +1,5 @@
 import { AxiosResponse } from "axios";
 import { BaseApiService } from "../../../libs/store/services";
-// import { JWT_LOCALSTORAGE_KEY } from "../../../libs/utils/constants";
-// import { parseJWT, setToHappen } from "../../../libs/utils/helpers";
 import { User } from "../../User/store/types";
 
 export class AuthService extends BaseApiService {
@@ -29,34 +27,10 @@ export class AuthService extends BaseApiService {
     return AuthService._instance;
   }
 
-  // static getAuthState(): boolean {
-  //   return !!localStorage.getItem(JWT_LOCALSTORAGE_KEY);
-  // }
-
   setUser(user: User | null): void {
     this.user = user;
     this.resolve && this.resolve(user);
   }
-
-  // applyToken(jwt: string, silent = false): void {
-  //   console.log(jwt);
-
-  //   localStorage.setItem(this.TOKEN_KEY, jwt);
-
-  //   if (!silent) {
-  //     const [, payload] = parseJWT(jwt);
-  //     const expiredDate = payload.exp - 500;
-
-  //     if (this.updateTimeout !== null) {
-  //       window.clearTimeout(this.updateTimeout);
-  //     }
-
-  //     this.updateTimeout = setToHappen(async () => {
-  //       const newToken = await this.refreshToken(jwt);
-  //        localStorage.setItem(this.TOKEN_KEY, newToken.data.access_token.token);
-  //     }, expiredDate * 1000);
-  //   }
-  // }
 
   login = (data: object): Promise<AxiosResponse> => {
     return this.post(`${this.API_ROUTE}/auth/login`, data);

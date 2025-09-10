@@ -1,10 +1,12 @@
 import React from "react";
-import { currencyPoolSelector } from "../../../../Chart/store/selectors";
+// import { currencyPoolSelector } from "../../../../Chart/store/selectors";
 import { Trade } from "../../../store/types";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import moment from "moment";
 import { styles } from "../styles";
 import { Button, TableCell, TableRow } from "@mui/material";
+import { currencyPoolSelector } from "../../../../Chart/store/selectors";
+import { useSelector } from "react-redux";
 
 interface Props {
   trade: Trade;
@@ -16,6 +18,7 @@ export const TradeItem = ({ trade, handleClose, handleClick }: Props) => {
   const currencyPool = useSelector(currencyPoolSelector);
   const currentTradePrice =
     currencyPool[trade.currency.replace("/", "") as keyof typeof currencyPool];
+
   const longWinConditions = trade.price_on_open < currentTradePrice;
   return (
     <TableRow

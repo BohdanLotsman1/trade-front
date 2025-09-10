@@ -1,5 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { redirect } from "react-router";
+import { getMe } from "../../../modules/User/store/actions";
+import store from "..";
 
 type ConfigType = AxiosRequestConfig & {
   fullResponse?: boolean;
@@ -29,6 +31,7 @@ api.interceptors.response.use(
           redirect("/login");
           throw errors.response;
         }
+        store.dispatch(getMe());
       } catch (error) {
         throw errors.response;
       }

@@ -14,4 +14,5 @@ const reducer = combineReducers({
 
 export type State = ReturnType<typeof reducer>;
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default () => reducer;

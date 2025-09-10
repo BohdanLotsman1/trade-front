@@ -3,6 +3,7 @@ import { REGISTER, REGISTER_ERROR, REGISTER_SUCCESS } from "../actionTypes";
 import { SignUpStore } from "../types";
 import { SignUpInitStore } from "../initialState";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (
   state: SignUpStore = SignUpInitStore,
   { type, payload }: Actions

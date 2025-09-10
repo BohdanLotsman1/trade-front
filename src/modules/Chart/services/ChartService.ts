@@ -23,4 +23,7 @@ export class ChartService extends BaseApiService {
       }${endTime ? `&endTime=${endTime}` : ""}`
     );
   };
+  getListedCurrencies = (): Promise<AxiosResponse> => {
+    return this.get(`${this.API_ROUTE}/history/listed-currencies`);
+  };
 }

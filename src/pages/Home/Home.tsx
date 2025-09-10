@@ -15,8 +15,6 @@ const Home = () => {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column",
-          height: "100%",
           gap: 2,
           paddingBottom: 2,
           paddingTop: 2,
@@ -24,13 +22,13 @@ const Home = () => {
         }}
       >
         <Chart />
-        <Box
-          className={"tradeHistory"}
-          style={{ display: user?.id ? "flex" : "none", width: "100%" }}
-        >
-          <TradeHistory />
-          <TradeForm />
-        </Box>
+        <TradeForm />
+      </Box>
+      <Box
+        className={"tradeHistory"}
+        style={{ display: user?.id ? "flex" : "none", width: "100%" }}
+      >
+        <TradeHistory />
       </Box>
     </Box>
   );

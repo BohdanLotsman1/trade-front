@@ -11,7 +11,7 @@ const Wrapper = () => {
 
   useLayoutEffect(() => {
     dispatch(getMe() as any);
-  }, []);
+  }, [dispatch]);
 
   return (
     <Box>

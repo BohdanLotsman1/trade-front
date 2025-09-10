@@ -4,12 +4,12 @@ import {
   GET_CHART_HISTORY_SUCCESS,
   SET_CURRENT_CURRENCY,
   GET_CHART_HISTORY_ERROR,
-  SET_CURRENT_SOCKET_CURRENCY,
   SET_CANDLE_OBJECT,
-  SET_CURRENCY_POOL_ITEM,
+  SET_CURRENCY_POOL,
 } from "../actionTypes";
 import { GetChartInStore } from "../types";
 import { chartInitialValues } from "../initialState";
+import { parsedChart } from "../../utils";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (
@@ -30,7 +30,7 @@ export default (
     case GET_CHART_HISTORY_SUCCESS:
       return {
         ...state,
-        chartData: payload,
+        chartData: parsedChart(payload ?? []),
         loading: false,
       };
     case SET_CURRENT_CURRENCY:
@@ -38,24 +38,16 @@ export default (
         ...state,
         currentCurrency: payload,
       };
-    case SET_CURRENT_SOCKET_CURRENCY:
-      return {
-        ...state,
-        socketCurrency: payload,
-      };
     case GET_CHART_HISTORY_ERROR:
       return {
         ...state,
         loading: false,
         error: payload,
       };
-    case SET_CURRENCY_POOL_ITEM:
+    case SET_CURRENCY_POOL:
       return {
         ...state,
-        currPool: {
-          ...state.currPool,
-          [payload.currency as keyof typeof state.currPool]: payload.value,
-        },
+        currPool: payload,
       };
     default:
       return state;

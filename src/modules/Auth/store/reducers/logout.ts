@@ -8,6 +8,7 @@ import {
 import { LogoutStore } from "../types";
 import { LogoutInitStore } from "../initialState";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (
   state: LogoutStore = LogoutInitStore,
   { type, payload }: Actions

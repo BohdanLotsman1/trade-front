@@ -8,6 +8,7 @@ import {
 import { GetTradesInStore } from "../types";
 import { tradeInitialValues } from "../initialState";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (
   state: GetTradesInStore = tradeInitialValues,
   { type, payload }: Actions

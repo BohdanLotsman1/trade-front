@@ -4,9 +4,11 @@ import {
   GET_CHART_HISTORY_ERROR,
   GET_CHART_HISTORY_SUCCESS,
   SET_CURRENT_CURRENCY,
-  SET_CURRENT_SOCKET_CURRENCY,
   SET_CANDLE_OBJECT,
-  SET_CURRENCY_POOL_ITEM,
+  SET_CURRENCY_POOL,
+  GET_LISTED_CURRENCIES,
+  GET_LISTED_CURRENCIES_SUCCESS,
+  GET_LISTED_CURRENCIES_ERROR,
 } from "../actionTypes";
 import { Candle, GetHistoryParams } from "../types";
 
@@ -25,11 +27,10 @@ export const getChartHistorySuccess = (payload: string): Actions => ({
   payload,
 });
 
-export const setCurrencyPoolItem = (payload: {
-  currency: string;
-  value: number;
+export const setCurrencyPool = (payload: {
+  [key: string]: number;
 }): Actions => ({
-  type: SET_CURRENCY_POOL_ITEM,
+  type: SET_CURRENCY_POOL,
   payload,
 });
 
@@ -45,7 +46,23 @@ export const setCurrentCurrency = (payload: string): PayloadAction<string> => ({
   payload,
 });
 
-export const setSocketCurrency = (payload: string): PayloadAction<string> => ({
-  type: SET_CURRENT_SOCKET_CURRENCY,
+export const getListedCurrencies = (
+  payload: string
+): PayloadAction<string> => ({
+  type: GET_LISTED_CURRENCIES,
+  payload,
+});
+
+export const getListedCurrenciesSuccess = (
+  payload: string
+): PayloadAction<string> => ({
+  type: GET_LISTED_CURRENCIES_SUCCESS,
+  payload,
+});
+
+export const getListedCurrenciesError = (
+  payload: string
+): PayloadAction<string> => ({
+  type: GET_LISTED_CURRENCIES_ERROR,
   payload,
 });
