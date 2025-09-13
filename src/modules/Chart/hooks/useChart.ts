@@ -34,6 +34,27 @@ export const useChart = (): UseChartResult => {
         fixLeftEdge: true,
         timeVisible: true,
         secondsVisible: true,
+        rightOffset: 5,
+        barSpacing: 10,
+        minBarSpacing: 3,
+        maxBarSpacing: 30,
+        borderColor: "#182233",
+      },
+      layout: {
+        background: { color: "#3c3c3c" },
+        textColor: "#bebebeff",
+      },
+      grid: {
+        vertLines: {
+          color: "#5d5d5d",
+          style: 0,
+          visible: true,
+        },
+        horzLines: {
+          color: "#5d5d5d",
+          style: 0,
+          visible: true,
+        },
       },
     });
     setChart(chart);

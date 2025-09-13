@@ -12,11 +12,13 @@ interface Props {
 export const ClosedTradesBody = ({ trades, handleClick }: Props) => {
   return (
     <TableBody sx={styles.body}>
-      {trades
-        .filter((item) => item.state === "CLOSED")
-        .map((trade: Trade) => (
-          <ClosedTradesItem handleClick={handleClick} trade={trade} />
-        ))}
+      {trades.map((trade: Trade) => (
+        <ClosedTradesItem
+          handleClick={handleClick}
+          trade={trade}
+          key={trade.id}
+        />
+      ))}
     </TableBody>
   );
 };

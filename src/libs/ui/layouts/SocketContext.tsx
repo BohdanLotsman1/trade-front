@@ -44,7 +44,7 @@ export const WebSocketProvider = ({
     socket.send(
       JSON.stringify({
         method: "SUBSCRIBE",
-        params: [currency + "@kline_1m"],
+        params: [currency.toLowerCase() + "@kline_1m"],
         id: 1,
       })
     );

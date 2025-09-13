@@ -12,7 +12,7 @@ export const chartInitialValues: GetChartInStore = {
     close: 0,
     volume: 0,
   },
-  currPool: {},
+  currPool: [],
   loading: false,
   error: "",
 };

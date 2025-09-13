@@ -52,7 +52,7 @@ export const Chart = () => {
 
   const setChartDimensions = React.useCallback(() => {
     chart?.applyOptions({
-      width: (ref.current?.clientWidth || 40) - 40,
+      width: ref.current?.clientWidth,
       height: ref.current?.clientHeight,
     });
   }, [chart]);
@@ -63,21 +63,37 @@ export const Chart = () => {
   }, [setChartDimensions]);
 
   return (
-    <Box sx={{ flex: 1, height: 300 }} ref={ref}>
+    <Box
+      sx={{
+        gridColumnStart: 1,
+        gridColumnEnd: user.id ? 4 : 5,
+        gridRowStart: 1,
+        gridRowEnd: 3,
+        position: "relative",
+      }}
+      ref={ref}
+    >
       {loading && (
         <CircularProgress
           sx={{
             position: "absolute",
+            top: "50%",
+            left: "50%",
+            marginTop: "-20px",
+            marginLeft: "-20px",
             zIndex: 10,
           }}
         />
       )}
-      <div
+      <Box
         id="chart"
-        style={{
-          display: "flex",
-          width: "100%",
+        sx={{
+          maxHeight: "385px",
           height: "100%",
+          width: "100%",
+          borderRadius: 2,
+          overflow: "hidden",
+          boxShadow: "0px 0px 2px 2px #00000029",
         }}
       />
     </Box>

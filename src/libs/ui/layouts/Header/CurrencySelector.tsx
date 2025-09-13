@@ -36,7 +36,9 @@ export const CurrencySelector = () => {
       ) : (
         <Autocomplete<{ title: string; value: string }>
           sx={{
-            border: "none",
+            backgroundColor: "#676767",
+            borderRadius: "5px",
+            color: "white",
             "& .MuiAutocomplete-inputRoot .MuiAutocomplete-input": {
               width: "unset",
             },

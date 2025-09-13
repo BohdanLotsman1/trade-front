@@ -13,6 +13,7 @@ interface Props {
 
 export const TradesTableBody = ({ trades, handleClick }: Props) => {
   const dispatch = useDispatch();
+
   const handleClose = (id: string) => () => {
     dispatch(closeTrade(id) as any);
   };
@@ -30,6 +31,7 @@ export const TradesTableBody = ({ trades, handleClick }: Props) => {
             handleClick={handleClick}
             handleClose={handleClose}
             trade={trade}
+            key={trade.id}
           />
         ))}
     </TableBody>

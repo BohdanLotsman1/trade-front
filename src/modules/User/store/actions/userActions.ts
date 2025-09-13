@@ -11,6 +11,7 @@ import {
   GET_WALLET,
   SET_WALLET,
   REFILL_WALLET,
+  CLEAR_USER_STORE,
 } from "../actionTypes";
 import { Wallet } from "../types";
 
@@ -60,6 +61,10 @@ export const setWallet = (payload: Wallet) => ({
 export const deleteUser = (payload: any): PayloadAction<string[]> => ({
   type: DELETE_USER,
   payload,
+});
+
+export const clearUserStore = (): PayloadAction<undefined> => ({
+  type: CLEAR_USER_STORE,
 });
 
 export const updateUserPassword = (payload: any): PayloadAction<string[]> => ({

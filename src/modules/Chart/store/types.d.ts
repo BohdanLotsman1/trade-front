@@ -2,9 +2,10 @@ export interface GetChartInStore {
   chartData: Array<Candle>;
   currentCurrency: string;
   currentCandle: Candle;
-  currPool: {
-    [key: string]: number;
-  };
+  currPool: Array<{
+    currency: string;
+    value: number;
+  }>;
   loading: boolean;
   error: string;
 }

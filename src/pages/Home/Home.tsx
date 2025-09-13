@@ -11,25 +11,25 @@ const Home = () => {
   const user = useSelector(getUserSelector);
 
   return (
-    <Box sx={{ width: "100%", height: "100%" }}>
-      <Box
-        sx={{
-          display: "flex",
-          gap: 2,
-          paddingBottom: 2,
-          paddingTop: 2,
-          paddingX: 1,
-        }}
-      >
-        <Chart />
-        <TradeForm />
-      </Box>
-      <Box
-        className={"tradeHistory"}
-        style={{ display: user?.id ? "flex" : "none", width: "100%" }}
-      >
-        <TradeHistory />
-      </Box>
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        display: "grid",
+        gridTemplateColumns: "repeat(4, 1fr)",
+        gridTemplateRows: "170px",
+        gridColumnGap: 8,
+        gridRowGap: 8,
+        padding: 1,
+      }}
+    >
+      <Chart />
+      {user?.id && (
+        <>
+          <TradeForm />
+          <TradeHistory />
+        </>
+      )}
     </Box>
   );
 };

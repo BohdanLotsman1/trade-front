@@ -25,10 +25,10 @@ export const styles = {
     overflow: "auto",
   },
   win: {
-    backgroundColor: "rgb(14, 203, 129)",
+    backgroundColor: "#26a69a",
   },
   lose: {
-    backgroundColor: "rgb(242, 121, 121)",
+    backgroundColor: "#ef5350",
   },
   currency: {
     cursor: "pointer",
@@ -50,7 +50,7 @@ export const styles = {
     },
   },
   item: {
-    border: "1px solid white",
+    border: "1px solid #00000029",
   },
   headCell: {
     fontWeight: 600,

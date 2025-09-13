@@ -27,22 +27,36 @@ export const TradeHistory = () => {
       {loading ? (
         <CircularProgress />
       ) : (
-        <Box sx={{ flex: 1 }}>
+        <Box
+          sx={{
+            borderRadius: 1,
+            boxShadow: "0px 0px 2px 2px #00000029",
+            gridColumnStart: 1,
+            gridColumnEnd: 5,
+          }}
+        >
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs
               value={tabValue}
               onChange={handleChange}
               aria-label="basic tabs example"
+              sx={{
+                "& .Mui-selected": {
+                  color: "white !important",
+                },
+                "& .MuiTabs-indicator": { backgroundColor: "white" },
+                "& .MuiTab-root": { color: "#9b9b9bff" },
+              }}
             >
-              <Tab label="Closed Trades" />
               <Tab label="Opened Trades" />
+              <Tab label="Closed Trades" />
             </Tabs>
           </Box>
           <TabPanel value={tabValue} index={0}>
-            <ClosedTrades trades={trades} handleClick={handleClick} />
+            <OpenedTrades trades={trades} handleClick={handleClick} />
           </TabPanel>
           <TabPanel value={tabValue} index={1}>
-            <OpenedTrades trades={trades} handleClick={handleClick} />
+            <ClosedTrades trades={trades} handleClick={handleClick} />
           </TabPanel>
         </Box>
       )}

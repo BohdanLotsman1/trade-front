@@ -5,6 +5,7 @@ import {
   UPDATE_USER,
   GET_USER_SUCCESS,
   GET_USER_ERROR,
+  CLEAR_USER_STORE,
 } from "../actionTypes";
 import { GetUserInStore } from "../types";
 import { UserInitialValues } from "../initialState";
@@ -41,6 +42,8 @@ export default (
       };
     case SET_WALLET:
       return { ...state, wallet: payload };
+    case CLEAR_USER_STORE:
+      return { ...UserInitialValues };
     default:
       return state;
   }

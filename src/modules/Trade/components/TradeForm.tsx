@@ -1,8 +1,7 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
+import { Form, Formik } from "formik";
 import { Trade, TradeFormValues } from "../store/types";
 import * as Yup from "yup";
-import "./style.scss";
 import { createTradeInitialValues } from "../store/initialState";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
@@ -12,9 +11,10 @@ import {
   currencySelector,
   currentCandleSelector,
 } from "../../Chart/store/selectors";
-import classNames from "classnames";
 import { setWallet } from "../../User/store/actions";
-import { Button } from "@mui/material";
+import { Box, Button, InputAdornment, Typography } from "@mui/material";
+import { TrendingDown, TrendingUp } from "@mui/icons-material";
+import { FormikTextField } from "./TradeFormInput";
 
 export const TradeForm = () => {
   const dispatch = useDispatch();
@@ -70,58 +70,93 @@ export const TradeForm = () => {
         validationSchema={BetValidationSchema()}
         onSubmit={submitHandle}
       >
-        <Form className="form">
-          <div className="bet-input">
-            <span>Price $</span>
-            <Field
-              name="trade_price"
-              placeholder="Bet"
-              type="number"
-              min={10}
-              max={2000}
-              className="form-input"
-            />
-            <ErrorMessage
-              name="trade_price"
-              component="div"
-              className="error-message"
-            />
-          </div>
-
-          <div className="bet-input">
-            <span>Time(min.)</span>
-            <Field
-              name="time"
-              placeholder="Time"
-              type="number"
-              min={1}
-              max={100}
-              className="form-input"
-            />
-            <ErrorMessage
-              name="time"
-              component="div"
-              className="error-message"
-            />
-          </div>
-          <div className="bet-buttons">
+        <Form style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <FormikTextField
+            name="trade_price"
+            placeholder="Bet"
+            label="Bet($)"
+            type="number"
+            inputMode="decimal"
+            slotProps={{
+              htmlInput: {
+                min: 10,
+                step: "any",
+                inputMode: "decimal",
+                max: 2000,
+              },
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end" disablePointerEvents>
+                    $
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+          <FormikTextField
+            name="time"
+            placeholder="Time"
+            label="Time(min.)"
+            type="number"
+            inputMode="decimal"
+            sx={{ width: "100%" }}
+            slotProps={{
+              htmlInput: {
+                min: 1,
+                step: "any",
+                inputMode: "decimal",
+                max: 100,
+              },
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end" disablePointerEvents>
+                    min.
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
             <Button
               type="submit"
-              className={classNames("bet-buttons-buy", "bet-buttons-btn")}
+              sx={{
+                backgroundColor: "#25a59a",
+                color: "white",
+                gap: 1,
+              }}
               onClick={() => handleClick(true)}
             >
-              BUY/LONG
+              <Typography variant="button">BUY/LONG</Typography>
+              <TrendingUp sx={{ fontSize: 20 }} />
             </Button>
             <Button
               type="submit"
-              className={classNames("bet-buttons-sell", "bet-buttons-btn")}
+              sx={{ backgroundColor: "#f0534f", color: "white", gap: 1 }}
               onClick={() => handleClick(false)}
             >
-              SELL/SHORT
+              <Typography variant="button">SELL/SHORT</Typography>
+              <TrendingDown sx={{ fontSize: 20 }} />
             </Button>
-          </div>
+          </Box>
         </Form>
       </Formik>
+      <Box
+        sx={{
+          padding: 2,
+          flex: 1,
+          alignItems: "center",
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          borderRadius: "8px",
+          border: "1px dashed #00000029",
+        }}
+      >
+        <Typography sx={{ color: "white", fontWeight: 600 }} typography={"h6"}>
+          AI
+        </Typography>
+        <Typography sx={{ color: "white" }}>Coming soon</Typography>
+      </Box>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import {
   registerUserError,
   registerUserSuccess,
 } from "../actions";
-import { getUserSuccess } from "../../../User/store/actions/";
+import { clearUserStore, getUserSuccess } from "../../../User/store/actions/";
 import { logoutUserError, logoutUserSuccess } from "../actions/logoutActions";
 
 const registerService = RegisterService.getInstance();
@@ -19,8 +19,8 @@ export function* logining({ payload }: Actions) {
 
     if (data?.message === undefined) {
       yield put(loginUserSuccess());
-
       yield put(getUserSuccess(data));
+      window.location.href = "/";
     } else yield put(loginUserError([data.message]));
   } catch (error: any) {
     console.log(error);
@@ -32,6 +32,7 @@ export function* logout() {
   try {
     yield call(authService.logout);
     yield put(logoutUserSuccess());
+    yield put(clearUserStore());
   } catch (error: any) {
     console.log(error);
     yield put(logoutUserError([error.response.data.message]));

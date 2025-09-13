@@ -19,8 +19,6 @@ export function parseJWT(jwt: string): [object, { exp: number }, string] {
 
 export function setToHappen(fn: Function, timestamp: number): number {
   const t = new Date(timestamp).getTime() - new Date().getTime();
-  console.log(t);
-
   return setTimeout(fn, t);
 }
 
