@@ -11,7 +11,6 @@ export const TimelineButtons = () => {
   const dispatch = useDispatch();
 
   const handleClick = (timeframe: string) => {
-    console.log(timeframe);
     dispatch(setTimeInterval(timeframe.toLowerCase() as TimeInterval) as any);
   };
 

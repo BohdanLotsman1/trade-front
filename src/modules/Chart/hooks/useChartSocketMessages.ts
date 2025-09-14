@@ -25,7 +25,6 @@ export const useChartSocketMessages = ({
 
     if (!socket || !candlestickChart || !volumeChart || !smaLines.length)
       return;
-    console.log("message");
 
     socket.onmessage = (event: MessageEvent) => {
       const socketData = JSON.parse(event.data);
