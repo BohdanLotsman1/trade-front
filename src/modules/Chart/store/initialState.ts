@@ -3,6 +3,7 @@ import { GetChartInStore } from "./types";
 export const chartInitialValues: GetChartInStore = {
   chartData: [],
   currentCurrency: "",
+  timeInterval: "1m",
   currentCandle: {
     time: 0,
     open: 0,

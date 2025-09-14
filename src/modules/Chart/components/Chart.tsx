@@ -5,6 +5,7 @@ import {
   chartDataSelector,
   currencySelector,
   loadingSelector,
+  timeIntervalSelector,
 } from "../store/selectors";
 import { CURRENCY_LOCALSTORAGE_KEY } from "../../../libs/utils/constants";
 import { calculateSMA } from "../../../libs/utils/helpers";
@@ -14,6 +15,7 @@ import { WebSocketContext } from "../../../libs/ui/layouts/SocketContext";
 import { useChart } from "../hooks/useChart";
 import { getVolume } from "../utils";
 import { useChartSocketMessages } from "../hooks/useChartSocketMessages";
+import { TimelineButtons } from "./TimelineButtons";
 
 export const Chart = () => {
   const dispatch = useDispatch();
@@ -21,9 +23,12 @@ export const Chart = () => {
   const loading = useSelector(loadingSelector);
   const user = useSelector(getUserSelector);
   const chartData = useSelector(chartDataSelector);
+  const interval = useSelector(timeIntervalSelector);
+
   const ref = useRef<HTMLDivElement | null>(null);
   const { socket } = useContext<any>(WebSocketContext);
   const { candlestickChart, volumeChart, smaLines, chart } = useChart();
+
   useChartSocketMessages({ candlestickChart, volumeChart, smaLines });
 
   useEffect(() => {
@@ -33,8 +38,8 @@ export const Chart = () => {
       dispatch(setCurrentCurrency(currency) as any);
       return;
     }
-    dispatch(getChartHistory({ currency }) as any);
-  }, [currencyPair, dispatch, user.id]);
+    dispatch(getChartHistory({ currency, interval }) as any);
+  }, [currencyPair, dispatch, user.id, interval]);
 
   useEffect(() => {
     let volumeData = getVolume(chartData);
@@ -51,11 +56,18 @@ export const Chart = () => {
   }, [candlestickChart, chart, chartData, volumeChart, currencyPair, socket]);
 
   const setChartDimensions = React.useCallback(() => {
-    chart?.applyOptions({
-      width: ref.current?.clientWidth,
-      height: ref.current?.clientHeight,
-    });
+    setTimeout(() => {
+      chart?.applyOptions({
+        width: ref.current?.clientWidth,
+        height: ref.current?.clientHeight,
+      });
+    }, 100);
   }, [chart]);
+
+  useEffect(() => {
+    setChartDimensions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user.id]);
 
   useEffect(() => {
     window.addEventListener("resize", setChartDimensions);
@@ -68,12 +80,12 @@ export const Chart = () => {
         gridColumnStart: 1,
         gridColumnEnd: user.id ? 4 : 5,
         gridRowStart: 1,
-        gridRowEnd: 3,
+        gridRowEnd: 5,
         position: "relative",
       }}
       ref={ref}
     >
-      {loading && (
+      {loading ? (
         <CircularProgress
           sx={{
             position: "absolute",
@@ -84,12 +96,15 @@ export const Chart = () => {
             zIndex: 10,
           }}
         />
+      ) : (
+        <TimelineButtons />
       )}
+
       <Box
         id="chart"
         sx={{
-          maxHeight: "385px",
           height: "100%",
+          maxHeight: ref.current?.clientHeight,
           width: "100%",
           borderRadius: 2,
           overflow: "hidden",

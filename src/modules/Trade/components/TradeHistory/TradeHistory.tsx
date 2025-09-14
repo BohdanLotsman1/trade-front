@@ -7,13 +7,13 @@ import { ClosedTrades } from "./ClosedTrades/ClosedTrades";
 import { OpenedTrades } from "./OpenedTrades/OpenedTrades";
 import { Box, CircularProgress, Tab, Tabs } from "@mui/material";
 import { TabPanel } from "../TabPanel";
-
 export const TradeHistory = () => {
   const dispatch = useDispatch();
   const loading = useSelector(tradesLoadingSelector);
   const trades = useSelector(tradesSelector);
+
   const [tabValue, setTabValue] = useState(0);
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
 

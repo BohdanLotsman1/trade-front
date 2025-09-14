@@ -9,8 +9,9 @@ import {
   GET_LISTED_CURRENCIES,
   GET_LISTED_CURRENCIES_SUCCESS,
   GET_LISTED_CURRENCIES_ERROR,
+  SET_TIME_INTERVAL,
 } from "../actionTypes";
-import { Candle, GetHistoryParams } from "../types";
+import { Candle, GetHistoryParams, TimeInterval } from "../types";
 
 export const getChartHistory = (payload: GetHistoryParams): Actions => ({
   type: GET_CHART_HISTORY,
@@ -64,5 +65,12 @@ export const getListedCurrenciesError = (
   payload: string
 ): PayloadAction<string> => ({
   type: GET_LISTED_CURRENCIES_ERROR,
+  payload,
+});
+
+export const setTimeInterval = (
+  payload: TimeInterval
+): PayloadAction<TimeInterval> => ({
+  type: SET_TIME_INTERVAL,
   payload,
 });

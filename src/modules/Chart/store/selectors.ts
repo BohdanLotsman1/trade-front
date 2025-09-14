@@ -8,3 +8,6 @@ export const currentCandleSelector = (state: State) =>
 export const loadingSelector = (state: State) => state.chart.chart.loading;
 export const currencyPoolSelector = (state: State) =>
   state.chart.chart.currPool;
+export const errorSelector = (state: State) => state.chart.chart.error;
+export const timeIntervalSelector = (state: State) =>
+  state.chart.chart.timeInterval;

@@ -5,7 +5,10 @@ import React, {
   useEffect,
 } from "react";
 import { useSelector } from "react-redux";
-import { currencySelector } from "../../../modules/Chart/store/selectors";
+import {
+  currencySelector,
+  timeIntervalSelector,
+} from "../../../modules/Chart/store/selectors";
 
 export const WebSocketContext = createContext<{ socket: WebSocket | null }>({
   socket: null,
@@ -17,6 +20,7 @@ export const WebSocketProvider = ({
   children: React.ReactNode;
 }) => {
   const currency = useSelector(currencySelector);
+  const timeInterval = useSelector(timeIntervalSelector);
 
   const [socket, setSocket] = useState<WebSocket | null>(null);
 
@@ -44,7 +48,7 @@ export const WebSocketProvider = ({
     socket.send(
       JSON.stringify({
         method: "SUBSCRIBE",
-        params: [currency.toLowerCase() + "@kline_1m"],
+        params: [currency.toLowerCase() + `@kline_${timeInterval}`],
         id: 1,
       })
     );
@@ -52,12 +56,12 @@ export const WebSocketProvider = ({
       socket.send(
         JSON.stringify({
           method: "UNSUBSCRIBE",
-          params: [currency + "@kline_1m"],
+          params: [currency.toLowerCase() + `@kline_${timeInterval}`],
           id: 1,
         })
       );
     };
-  }, [socket, currency]);
+  }, [socket, currency, timeInterval]);
   return (
     <WebSocketContext.Provider value={{ socket: socket ?? null }}>
       {children}

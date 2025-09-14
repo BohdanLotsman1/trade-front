@@ -64,7 +64,18 @@ export const TradeForm = () => {
   };
 
   return (
-    <div className="bet">
+    <Box
+      sx={{
+        boxShadow: "0px 0px 2px 2px #00000029",
+        display: "flex",
+        gap: 2,
+        flexDirection: "column",
+        padding: 1,
+        borderRadius: "5px",
+        gridRowStart: 1,
+        gridRowEnd: 5,
+      }}
+    >
       <Formik
         initialValues={createTradeInitialValues}
         validationSchema={BetValidationSchema()}
@@ -157,6 +168,6 @@ export const TradeForm = () => {
         </Typography>
         <Typography sx={{ color: "white" }}>Coming soon</Typography>
       </Box>
-    </div>
+    </Box>
   );
 };

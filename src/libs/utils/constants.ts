@@ -4,6 +4,7 @@ export const APP_API_HOST = process.env.REACT_APP_API_HOST;
 export const APP_URL = process.env.REACT_APP_URL;
 
 export const dateFormat = "YYYY/MM/DD";
+export const timeframes = ["1m", "15m", "1h", "4h", "1d", "1w"];
 
 export const socketCurrEnum = {
   btcusdt: "btcusdt",

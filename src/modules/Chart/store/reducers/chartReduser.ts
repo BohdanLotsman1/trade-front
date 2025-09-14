@@ -6,6 +6,7 @@ import {
   GET_CHART_HISTORY_ERROR,
   SET_CANDLE_OBJECT,
   SET_CURRENCY_POOL,
+  SET_TIME_INTERVAL,
 } from "../actionTypes";
 import { GetChartInStore } from "../types";
 import { chartInitialValues } from "../initialState";
@@ -48,6 +49,11 @@ export default (
       return {
         ...state,
         currPool: payload,
+      };
+    case SET_TIME_INTERVAL:
+      return {
+        ...state,
+        timeInterval: payload,
       };
     default:
       return state;

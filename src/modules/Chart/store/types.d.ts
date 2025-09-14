@@ -1,6 +1,7 @@
 export interface GetChartInStore {
   chartData: Array<Candle>;
   currentCurrency: string;
+  timeInterval: TimeInterval;
   currentCandle: Candle;
   currPool: Array<{
     currency: string;
@@ -9,6 +10,7 @@ export interface GetChartInStore {
   loading: boolean;
   error: string;
 }
+export type TimeInterval = "1m" | "15m" | "1h" | "4h" | "1d" | "1w";
 export interface GetHistoryParams {
   currency: string;
   interval?: string;
