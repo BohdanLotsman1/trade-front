@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Form, Formik } from "formik";
 import { Trade, TradeFormValues } from "../store/types";
-import * as Yup from "yup";
 import { createTradeInitialValues } from "../store/initialState";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
@@ -14,7 +13,8 @@ import {
 import { setWallet } from "../../User/store/actions";
 import { Box, Button, InputAdornment, Typography } from "@mui/material";
 import { TrendingDown, TrendingUp } from "@mui/icons-material";
-import { FormikTextField } from "./TradeFormInput";
+import { BetValidationSchema } from "../../../libs/utils/validations";
+import { FormikTextField } from "../../../libs/ui/components/FormInput";
 
 export const TradeForm = () => {
   const dispatch = useDispatch();
@@ -22,19 +22,6 @@ export const TradeForm = () => {
   const currency = useSelector(currencySelector);
   const user = useSelector(getUserSelector);
   const [direction, setDirection] = useState(false);
-  const required = "This field is required";
-
-  const BetValidationSchema = () =>
-    Yup.object({
-      time: Yup.number()
-        .required(required)
-        .label("Time")
-        .min(1, "1 minute is a minimal diapazone"),
-      trade_price: Yup.number()
-        .required(required)
-        .label("Price")
-        .min(10, "10$ it's a minimal bet"),
-    });
 
   const submitHandle = (values: TradeFormValues) => {
     if (user.wallet.amount_of_money) {

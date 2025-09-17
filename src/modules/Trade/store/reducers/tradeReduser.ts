@@ -4,6 +4,7 @@ import {
   GET_TRADES_SUCCESS,
   CREATE_TRADE_SUCCESS,
   GET_TRADES,
+  CLOSE_TRADE,
 } from "../actionTypes";
 import { GetTradesInStore } from "../types";
 import { tradeInitialValues } from "../initialState";
@@ -29,6 +30,13 @@ export default (
       return {
         ...state,
         trades: [...state.trades, payload],
+      };
+    case CLOSE_TRADE:
+      return {
+        ...state,
+        trades: state.trades.map((trade) =>
+          trade.id === payload ? { ...trade, state: "CLOSED" } : trade
+        ),
       };
     case SET_ERROR:
       return {

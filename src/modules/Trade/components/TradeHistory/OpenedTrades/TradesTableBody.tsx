@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { closeTrade } from "../../../store/actions";
+import { cancelTrade } from "../../../store/actions";
 import { Trade } from "../../../store/types";
 import { TradeItem } from "./TradeItem";
 import { TableBody } from "@mui/material";
@@ -15,7 +15,7 @@ export const TradesTableBody = ({ trades, handleClick }: Props) => {
   const dispatch = useDispatch();
 
   const handleClose = (id: string) => () => {
-    dispatch(closeTrade(id) as any);
+    dispatch(cancelTrade(id) as any);
   };
 
   return (

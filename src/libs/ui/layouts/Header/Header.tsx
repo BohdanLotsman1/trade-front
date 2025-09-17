@@ -6,16 +6,17 @@ import "./style.scss";
 
 import classNames from "classnames";
 import { Box } from "@mui/material";
-import { AccountAvatar } from "./AccountAvatar";
-import { CurrencySelector } from "./CurrencySelector";
+import { AccountAvatar } from "../../components/AccountAvatar";
+import { CurrencySelector } from "../../components/CurrencySelector";
 
 const Header = () => {
   const user = useSelector(getUserSelector);
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const isRegistration = location.pathname === "/registration";
-  const isLogin = location.pathname === "/login";
+  const isRegistrationPage = location.pathname === "/registration";
+  const isLoginPage = location.pathname === "/login";
+  const isMainPage = location.pathname === "/";
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -29,13 +30,13 @@ const Header = () => {
         </Link>
       </div>
       <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-        <CurrencySelector />
+        {isMainPage && <CurrencySelector />}
         {!user?.id && !user?.loading && (
           <div className="rightSide">
             <Link
               to={"/registration"}
               className={classNames("link", {
-                highlightedLink: isRegistration,
+                highlightedLink: isRegistrationPage,
               })}
             >
               SignUp
@@ -43,7 +44,7 @@ const Header = () => {
             <Link
               to={"/login"}
               className={classNames("link", {
-                highlightedLink: isLogin,
+                highlightedLink: isLoginPage,
               })}
             >
               SignIn

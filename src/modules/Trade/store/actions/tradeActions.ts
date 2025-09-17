@@ -1,5 +1,6 @@
 import { Actions } from "../../../../libs/store/types";
 import {
+  CANCEL_TRADE,
   CLOSE_TRADE,
   CREATE_TRADE,
   CREATE_TRADE_SUCCESS,
@@ -14,8 +15,8 @@ export const getTrades = (payload: string): Actions => ({
   payload,
 });
 
-export const closeTrade = (payload: string): Actions => ({
-  type: CLOSE_TRADE,
+export const cancelTrade = (payload: string): Actions => ({
+  type: CANCEL_TRADE,
   payload,
 });
 
@@ -36,5 +37,10 @@ export const createTradeSuccess = (payload: Trade): Actions => ({
 
 export const setTradeError = (payload: string): Actions => ({
   type: SET_ERROR,
+  payload,
+});
+
+export const closeTrade = (payload?: string): Actions => ({
+  type: CLOSE_TRADE,
   payload,
 });

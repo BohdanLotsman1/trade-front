@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as Yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik } from "formik";
 import { signUpErrorsSelector } from "../../modules/Auth/store/selectors";
 import ErrorPopup from "../../libs/ui/components/modals/ErrorPopup";
 import { RegistrationFormValues } from "../../modules/Auth/store/types";
@@ -10,26 +9,12 @@ import {
   registerUser,
 } from "../../modules/Auth/store/actions";
 import { registrationInitialValues } from "../../modules/Auth/store/initialState";
-
-const required = "This field is required";
-
-const RegisterValidationSchema = () =>
-  Yup.object({
-    email: Yup.string().email().required(required).label("Email"),
-    name: Yup.string().min(2).max(100).required(required).label("Nick name"),
-    password: Yup.string()
-      .min(8)
-      .matches(
-        /^(?=.*[a-zA-Z]).+$/,
-        "Password must contain at least 1 alphabetic character"
-      )
-      .matches(/\d/, "Password must contain at least 1 number")
-      .label("Password"),
-    password_confirmation: Yup.string()
-      .min(8)
-      .oneOf([Yup.ref("password")], "Passwords don`t match")
-      .label("Password confirmation"),
-  });
+import { RegisterValidationSchema } from "../../libs/utils/validations";
+import { AuthContainer } from "../../libs/ui/components/AuthContainer";
+import { AuthFormContainer } from "../../libs/ui/components/AuthFormContainer";
+import { Box, Button, Typography } from "@mui/material";
+import { Link } from "react-router";
+import { FormikTextField } from "../../libs/ui/components/FormInput";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -47,86 +32,66 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signUp">
-      <h1>Let's get started</h1>
-      <p className="mb-2 form-title">Register to Trade.io!</p>
-
+    <AuthContainer>
       <Formik
         initialValues={registrationInitialValues}
         validationSchema={RegisterValidationSchema}
         onSubmit={submitHandle}
       >
         {() => (
-          <Form className="form">
-            <div className="mb-1">
-              <span>What's your Name?</span>
-              <Field
-                name="name"
-                placeholder="First name"
-                type="text"
-                className="form-input"
-              />
-              <ErrorMessage
-                name="first_name"
-                component="div"
-                className="error-message"
-              />
-            </div>
+          <AuthFormContainer>
+            <Typography variant="h4" sx={{ color: "#bdbdbd" }}>
+              Let's get started
+            </Typography>
+            <Typography variant="body1" sx={{ color: "#bdbdbd" }}>
+              Register to Trade.io!
+            </Typography>
+            <Box sx={{ width: "100%" }}>
+              <Typography sx={{ color: "#bdbdbd" }}>
+                What's your Name?
+              </Typography>
+              <FormikTextField name="name" label="First name" type="text" />
+            </Box>
 
-            <div className="mb-1">
-              <span>What's your Email?</span>
-              <Field
-                name="email"
-                placeholder="Email"
-                type="email"
-                className="form-input"
-              />
-              <ErrorMessage
-                name="email"
-                component="div"
-                className="error-message"
-              />
-            </div>
+            <Box sx={{ width: "100%" }}>
+              <Typography sx={{ color: "#bdbdbd" }}>
+                What's your Email?
+              </Typography>
+              <FormikTextField name="email" label="Email" type="email" />
+            </Box>
 
-            <div className="mb-1">
-              <span>Enter your password</span>
-              <Field
+            <Box sx={{ width: "100%" }}>
+              <Typography sx={{ color: "#bdbdbd" }}>
+                Enter your password
+              </Typography>
+              <FormikTextField
                 name="password"
-                placeholder="Password"
+                label="Password"
                 type="password"
-                className="form-input"
               />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className="error-message"
-              />
-            </div>
+            </Box>
 
-            <div className="mb-1">
-              <span>Confirm your password</span>
-              <Field
+            <Box sx={{ width: "100%" }}>
+              <Typography sx={{ color: "#bdbdbd" }}>
+                Confirm your password
+              </Typography>
+              <FormikTextField
                 name="password_confirmation"
-                placeholder="Confirm Password"
+                label="Confirm Password"
                 type="password"
-                className="form-input"
               />
-              <ErrorMessage
-                name="password_confirmation"
-                component="div"
-                className="error-message"
-              />
-            </div>
+            </Box>
 
-            <button type="submit" className="form-submit">
-              <span>Register</span>
-            </button>
-          </Form>
+            <Button type="submit">Register</Button>
+            <Typography variant="body2" sx={{ color: "#bdbdbd" }}>
+              Already have an account? <Link to="/login">Log in</Link>
+            </Typography>
+          </AuthFormContainer>
         )}
       </Formik>
 
       <ErrorPopup errors={errors} clean={cleanLoginErrors} />
-    </div>
+    </AuthContainer>
   );
 };
 

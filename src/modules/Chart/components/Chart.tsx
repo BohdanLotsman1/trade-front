@@ -85,7 +85,7 @@ export const Chart = () => {
       }}
       ref={ref}
     >
-      {loading ? (
+      {loading && (
         <CircularProgress
           sx={{
             position: "absolute",
@@ -96,9 +96,9 @@ export const Chart = () => {
             zIndex: 10,
           }}
         />
-      ) : (
-        <TimelineButtons />
       )}
+
+      <TimelineButtons />
 
       <Box
         id="chart"

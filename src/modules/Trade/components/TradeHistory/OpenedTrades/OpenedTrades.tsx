@@ -1,16 +1,22 @@
-import { Trade } from "../../../store/types";
 import { styles } from "../styles";
 import { TradesTableBody } from "./TradesTableBody";
 import { TradesTableHeader } from "./TradesTableHead";
-import { Box, Table } from "@mui/material";
+import { Box, CircularProgress, Table } from "@mui/material";
 import { EmptyList } from "../../EmptyList";
+import { useSelector } from "react-redux";
+import {
+  tradesLoadingSelector,
+  tradesSelector,
+} from "../../../store/selectors";
 
 interface OpenedTradesProps {
-  trades: Array<Trade>;
   handleClick: (currency: string) => () => void;
 }
 
-export const OpenedTrades = ({ trades, handleClick }: OpenedTradesProps) => {
+export const OpenedTrades = ({ handleClick }: OpenedTradesProps) => {
+  const trades = useSelector(tradesSelector);
+  const loading = useSelector(tradesLoadingSelector);
+
   const filteredTrades = trades
     .filter((item) => item.state === "OPENED")
     .sort(
@@ -19,6 +25,7 @@ export const OpenedTrades = ({ trades, handleClick }: OpenedTradesProps) => {
 
   return (
     <Box sx={styles.scrollContainer}>
+      {loading && <CircularProgress />}
       {filteredTrades.length === 0 ? (
         <EmptyList title="No opened trades" />
       ) : (

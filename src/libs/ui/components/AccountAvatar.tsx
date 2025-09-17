@@ -1,8 +1,8 @@
 import { Avatar, Box, Button, Popover } from "@mui/material";
 import React from "react";
-import { User } from "../../../../modules/User/store/types";
+import { User } from "../../../modules/User/store/types";
 import { useDispatch } from "react-redux";
-import { refillWallet } from "../../../../modules/User/store/actions";
+import { refillWallet } from "../../../modules/User/store/actions";
 
 type AccountAvatarProps = {
   user: User;
@@ -58,7 +58,7 @@ export const AccountAvatar = ({ user, onLogout }: AccountAvatarProps) => {
             sx={{ cursor: "pointer", width: "100%" }}
             onClick={handleRefill}
           >
-            Refill $
+            Refill (10000$)
           </Button>
           <Button sx={{ cursor: "pointer", width: "100%" }} onClick={onLogout}>
             LogOut

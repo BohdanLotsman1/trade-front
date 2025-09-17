@@ -5,16 +5,17 @@ import {
   CircularProgress,
   TextField,
 } from "@mui/material";
-import { CURRENCY_LOCALSTORAGE_KEY } from "../../../utils/constants";
+import { CURRENCY_LOCALSTORAGE_KEY } from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentCurrency } from "../../../../modules/Chart/store/actions";
-import { currencySelector } from "../../../../modules/Chart/store/selectors";
-import { useListedCurrencies } from "../../../../modules/Chart/hooks/useListedCurrencies";
+import { setCurrentCurrency } from "../../../modules/Chart/store/actions";
+import { currencySelector } from "../../../modules/Chart/store/selectors";
+import { useListedCurrencies } from "../../../modules/Chart/hooks/useListedCurrencies";
 
 export const CurrencySelector = () => {
   const dispatch = useDispatch();
   const currency = useSelector(currencySelector);
   const { loading, listedCurrencies } = useListedCurrencies();
+
   const options = useMemo(
     () =>
       listedCurrencies.map((currency) => ({

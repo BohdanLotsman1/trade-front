@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
-// import { currencyPoolSelector } from "../../../../Chart/store/selectors";
 import { Trade } from "../../../store/types";
-// import { useSelector } from "react-redux";
 import moment from "moment";
 import { styles } from "../styles";
 import { Button, TableCell, TableRow } from "@mui/material";
 import { currencyPoolSelector } from "../../../../Chart/store/selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { getTrades } from "../../../store/actions";
+import { closeTrade } from "../../../store/actions";
 import { getWallet } from "../../../../User/store/actions";
 
 interface Props {
@@ -29,12 +27,15 @@ export const TradeItem = ({ trade, handleClose, handleClick }: Props) => {
         item.currency === tradeCurrency
     )?.value || 0;
 
-  const longWinConditions = trade.price_on_open < currentTradePrice;
+  const winConditions = Number(trade.direction)
+    ? currentTradePrice > trade.price_on_open
+    : trade.price_on_open > currentTradePrice;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (moment(trade.end_time).format() === moment().format()) {
-        dispatch(getTrades(trade.user_id) as any);
+      if (moment(trade.end_time).format() <= moment().format()) {
+        dispatch(closeTrade(trade.id) as any);
+
         dispatch(getWallet(trade.user_id) as any);
       }
       setTime(
@@ -51,13 +52,7 @@ export const TradeItem = ({ trade, handleClose, handleClick }: Props) => {
     <TableRow
       sx={{
         ...styles.item,
-        ...(trade.direction
-          ? longWinConditions
-            ? styles.win
-            : styles.lose
-          : !longWinConditions
-          ? styles.win
-          : styles.lose),
+        ...(winConditions ? styles.win : styles.lose),
       }}
     >
       <TableCell
